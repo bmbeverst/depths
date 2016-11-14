@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.depths.game.entities.Player;
+import com.depths.game.lighting.Lights;
 import com.depths.game.world.World;
 
 public class depths extends ApplicationAdapter {
@@ -15,10 +16,13 @@ public class depths extends ApplicationAdapter {
     private BitmapFont font;
 
     private float elapsedTime = 0;
+	private float deltaTime = 0;
     
 	private Player player;
 	private World world;
+	private Lights lights = null;
 
+	private Texture img;
 	@Override
 	public void create () {
         
@@ -28,6 +32,9 @@ public class depths extends ApplicationAdapter {
         player = new Player();
         world = new World();
 
+        lights = new Lights();
+		Gdx.app.log("MyTag", "Created");
+		img = new Texture("badlogic.jpg");
 		
 	}
 
@@ -39,16 +46,25 @@ public class depths extends ApplicationAdapter {
 
         
         player.update();
-        
-        
-		batch.begin();
+        deltaTime = Gdx.graphics.getDeltaTime();
+
+		lights.render(batch, deltaTime);
+		batch.draw(img, 0, 0, 1000, 1000);
+		//batch.begin(); Done in lights
         font.draw(batch, "Hello World", 300, 200);
         world.render(batch);
         player.render(batch, elapsedTime);
-        elapsedTime += Gdx.graphics.getDeltaTime();
 		batch.end();
+        elapsedTime += deltaTime;
 	}
 
+
+
+	@Override
+	public void resize(final int width, final int height) {
+		lights.resize(width, height);
+	}
+	
     @Override
     public void dispose() {
         batch.dispose();
