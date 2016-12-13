@@ -33,13 +33,11 @@ public class Lights {
 	final String lightBasedFragmentShader =  Gdx.files.internal("shaders/fragmentShader.glsl").readString();
 	
 	public Lights() {
-		Gdx.app.log("MyTag", "Lights started");
 		ShaderProgram.pedantic = false;
 		// Using my own vertex shader because it is simpler.
 		defaultShader = new ShaderProgram(vertexShader, defaultFragmentShader);
 		finalShader = new ShaderProgram(vertexShader, lightBasedFragmentShader);
 
-		Gdx.app.log("MyTag", lightBasedFragmentShader);
 		finalShader.begin();
 		finalShader.setUniformi("u_lightmap", 1);
 		finalShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
@@ -47,7 +45,6 @@ public class Lights {
 		finalShader.end();
 		
 		light = new Texture(Gdx.files.internal("lights/light.png"));
-		Gdx.app.log("MyTag", "Lights created");
 	}
 
 	
@@ -56,9 +53,6 @@ public class Lights {
 		fbo.begin();
 		batch.setShader(defaultShader);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		Failed blend
-//	    Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
-//	    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
 		batch.draw(light, 100, 250, 500, 500);
 		batch.draw(light, 200, 50, 500, 500);
@@ -84,8 +78,6 @@ public class Lights {
 	}
 
 	public void resize(int width, int height) {
-
-		Gdx.app.log("MyTag", "Resize");
 		fbo = new FrameBuffer(Format.RGBA8888, width, height, false);
 
 		finalShader.begin();
