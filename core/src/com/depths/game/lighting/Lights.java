@@ -29,16 +29,17 @@ public class Lights {
 
 	//read our shader files
 	final String vertexShader = Gdx.files.internal("shaders/vertexShader.glsl").readString();
-	final String defaultPixelShader = Gdx.files.internal("shaders/defaultPixelShader.glsl").readString();
-	final String finalPixelShader =  Gdx.files.internal("shaders/pixelShader.glsl").readString();
+	final String defaultFragmentShader = Gdx.files.internal("shaders/defaultFragmentShader.glsl").readString();
+	final String lightBasedFragmentShader =  Gdx.files.internal("shaders/fragmentShader.glsl").readString();
 	
 	public Lights() {
 		Gdx.app.log("MyTag", "Lights started");
 		ShaderProgram.pedantic = false;
-		defaultShader = new ShaderProgram(vertexShader, defaultPixelShader);
-		finalShader = new ShaderProgram(vertexShader, finalPixelShader);
+		// Using my own vertex shader because it is simpler.
+		defaultShader = new ShaderProgram(vertexShader, defaultFragmentShader);
+		finalShader = new ShaderProgram(vertexShader, lightBasedFragmentShader);
 
-		Gdx.app.log("MyTag", finalPixelShader);
+		Gdx.app.log("MyTag", lightBasedFragmentShader);
 		finalShader.begin();
 		finalShader.setUniformi("u_lightmap", 1);
 		finalShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
@@ -55,18 +56,23 @@ public class Lights {
 		fbo.begin();
 		batch.setShader(defaultShader);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		Failed blend
+//	    Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
+//	    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		batch.begin();
 		batch.draw(light, 100, 250, 500, 500);
+		batch.draw(light, 200, 50, 500, 500);
 		batch.end();
 		fbo.end();
+	    Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setShader(finalShader);
 		batch.begin();
 		fbo.getColorBufferTexture().bind(1); //this is important! bind the FBO to the 2nd texture unit
-		light.bind(0); //we force the binding of a texture on first texture unit to avoid artefacts
-					   //this is because our default and ambiant shader dont use multi texturing...
-					   //youc can basically bind anything, it doesnt matter
+		light.bind(0); //we force the binding of a texture on first texture unit to avoid artifacts
+					   //this is because our default and ambient shader don't use multi texturing...
+					   //You can basically bind anything, it doesn't matter
 	}
 	
 

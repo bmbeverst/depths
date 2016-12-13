@@ -41,7 +41,7 @@ public class depths extends ApplicationAdapter {
 	
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         
@@ -49,8 +49,8 @@ public class depths extends ApplicationAdapter {
         deltaTime = Gdx.graphics.getDeltaTime();
 
 		lights.render(batch, deltaTime);
-		batch.draw(img, 0, 0, 1000, 1000);
 		//batch.begin(); Done in lights
+		batch.draw(img, 0, 0, 1000, 1000);
         font.draw(batch, "Hello World", 300, 200);
         world.render(batch);
         player.render(batch, elapsedTime);

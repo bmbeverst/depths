@@ -24,6 +24,6 @@ void main() {
 	vec3 ambient = ambientColor.rgb * ambientColor.a;
 	vec3 intensity = ambient + light.rgb;
  	vec3 finalColor = diffuseColor.rgb * intensity;
-	
+
 	gl_FragColor = vColor * vec4(finalColor, diffuseColor.a);
 }
