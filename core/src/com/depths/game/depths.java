@@ -33,7 +33,6 @@ public class depths extends ApplicationAdapter {
         world = new World();
 
         lights = new Lights();
-		Gdx.app.log("MyTag", "Created");
 		img = new Texture("badlogic.jpg");
 		
 	}
