@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.depths.game.lighting.Light;
+import com.depths.game.world.World;
+
 
 public class Player {
 
@@ -26,12 +29,13 @@ public class Player {
 	private Animation animationAttackRight;
 	private TextureAtlas jumpRight;
 	private Animation animationJumpRight;
-	
+	 
 	private boolean jump = false;
 	private int jumpTime = 0;
 	private int maxJump = 40;
+	private World world;
 
-	public Player(){
+	public Player(World world){
 		standRight = new TextureAtlas(Gdx.files.internal("animations/StandRight-packed/pack.atlas"));
 		animationStandRight = new Animation(1/2f, standRight.getRegions());
 		goRight = new TextureAtlas(Gdx.files.internal("animations/GoRight-packed/pack.atlas"));
@@ -45,6 +49,8 @@ public class Player {
 		
 		height = standRight.findRegion("001").getRegionHeight();
 		width = standRight.findRegion("001").getRegionWidth();
+		
+		this.world = world;
 	}
 	public void update() {
 		if (jump) {
@@ -63,17 +69,22 @@ public class Player {
             jumpTime = maxJump;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
         	x -= 1.5f;
-            currentAnimation = animationGoRight;
+        	if (!jump) {
+                currentAnimation = animationGoRight;
+        	}
             left = true;
         } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
         	x += 1.5f;
-            currentAnimation = animationGoRight;
+        	if (!jump) {
+                currentAnimation = animationGoRight;
+        	}
             left = false;
         } else {
         	currentAnimation = animationStandRight;
         }
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             currentAnimation = animationAttackRight;
+            this.world.getLights().addLight(new Light(x, y, 50));
         } 
 	}
 	

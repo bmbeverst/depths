@@ -1,5 +1,7 @@
 package com.depths.game.lighting;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +20,7 @@ public class Lights {
 	private Texture light;
 	private FrameBuffer fbo;
 
-	//our different shaders.
+	//our shaders.
 	private ShaderProgram defaultShader;
 	private ShaderProgram finalShader;
 	
@@ -26,16 +28,17 @@ public class Lights {
 	public static final float ambientIntensity = .7f;
 	public static final Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
 	
-	//light flicker
-	private float[] lightSizes;
-	private float[] halfLightSize;
-	private int lightSizeIndex = 0;
-	private boolean lightSizeForward = true;
+	//used to make the light flicker
+	public float zAngle;
+	public static final float zSpeed = 15.0f;
+	public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 	
 	//read our shader files
 	final String vertexShader = Gdx.files.internal("shaders/vertexShader.glsl").readString();
 	final String defaultFragmentShader = Gdx.files.internal("shaders/defaultFragmentShader.glsl").readString();
 	final String lightBasedFragmentShader =  Gdx.files.internal("shaders/fragmentShader.glsl").readString();
+	
+	private ArrayList<Light> lights = new ArrayList<Light>(5);
 	
 	public Lights() {
 		ShaderProgram.pedantic = false;
@@ -50,44 +53,29 @@ public class Lights {
 		finalShader.end();
 		//TODO Make sure the light is centered and remove unused space
 		light = new Texture(Gdx.files.internal("lights/light.png"));
-		generateSizes(400, 500, 10);
 	}
 
-	private void generateSizes(int min, int max, int step) {
-		lightSizes = new float[(max-min)/step];
-		halfLightSize = new float[(max-min)/step];
-		float temp = min;
-		
-		for (int i = 0; i < lightSizes.length; i++) {
-			lightSizes[i] = temp + 10f*MathUtils.random();
-			halfLightSize[i] = lightSizes[i]*0.5f;
-			temp += step;
-		}
-		
-	}
 	
 	public void render(SpriteBatch batch, float deltaTime) {
 
-		if (lightSizeIndex >= lightSizes.length-1) {
-			lightSizeForward = false;
-		} else if( lightSizeIndex <= 0 ) {
-			lightSizeForward = true;
-		}
-		
-		if (lightSizeForward) {
-			lightSizeIndex++;
-		} else {
-			lightSizeIndex--;
-		}
-		
+
+		zAngle += deltaTime * zSpeed;
+		while(zAngle > PI2)
+			zAngle -= PI2;
 		
 		fbo.begin();
 		batch.setShader(defaultShader);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		Gdx.app.log("test", "Yesy:" + (100 - halfLightSize[lightSizeIndex]));
-		batch.draw(light, 100 - halfLightSize[lightSizeIndex], 250 - halfLightSize[lightSizeIndex], lightSizes[lightSizeIndex], lightSizes[lightSizeIndex]);
-		batch.draw(light, 200 - halfLightSize[lightSizeIndex], 50 - halfLightSize[lightSizeIndex], lightSizes[lightSizeIndex], lightSizes[lightSizeIndex]);
+
+		float lightSizeSeed = (4.75f + 0.25f * (float)Math.sin(zAngle) + .2f*MathUtils.random());
+		for(Light lightItem: lights) {
+			if (lightItem.getLife() > 0) {
+				float lightSize = lightSizeSeed*lightItem.getSize();
+				batch.draw(light, lightItem.getX() - lightSize*0.5f + 0.5f, lightItem.getY() - lightSize*0.5f + 0.5f, lightSize, lightSize);
+			}
+		}
+
 		batch.end();
 		fbo.end();
 	    Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -101,6 +89,12 @@ public class Lights {
 					   //You can basically bind anything, it doesn't matter
 	}
 	
+	public void addLight(Light light) {
+		lights.add(light);
+	}
+	public void removeLight(Light light) {
+		lights.remove(light);
+	}
 
 	public void dispose() {
 		finalShader.dispose();

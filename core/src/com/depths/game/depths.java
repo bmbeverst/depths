@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.depths.game.entities.Player;
+import com.depths.game.lighting.Light;
 import com.depths.game.lighting.Lights;
 import com.depths.game.world.World;
 
@@ -20,7 +21,6 @@ public class depths extends ApplicationAdapter {
     
 	private Player player;
 	private World world;
-	private Lights lights = null;
 
 	private Texture img;
 	@Override
@@ -29,10 +29,8 @@ public class depths extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("arial-15.fnt"),false);
         font.setColor(Color.RED);
-        player = new Player();
         world = new World();
-
-        lights = new Lights();
+        player = new Player(world);
 		img = new Texture("badlogic.jpg");
 		
 	}
@@ -47,7 +45,7 @@ public class depths extends ApplicationAdapter {
         player.update();
         deltaTime = Gdx.graphics.getDeltaTime();
 
-		lights.render(batch, deltaTime);
+        world.getLights().render(batch, deltaTime);
 		//batch.begin(); Done in lights
 		batch.draw(img, 0, 0, 1000, 1000);
         font.draw(batch, "Hello World", 300, 200);
@@ -61,7 +59,7 @@ public class depths extends ApplicationAdapter {
 
 	@Override
 	public void resize(final int width, final int height) {
-		lights.resize(width, height);
+		world.getLights().resize(width, height);
 	}
 	
     @Override
