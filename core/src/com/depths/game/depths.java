@@ -1,18 +1,18 @@
 package com.depths.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.depths.game.entities.Player;
-import com.depths.game.lighting.Light;
-import com.depths.game.lighting.Lights;
+import com.depths.game.actors.Player;
 import com.depths.game.world.World;
+import com.depths.screens.GameScreen;
 
-public class depths extends ApplicationAdapter {
+// Was ApplicationAdapter originally
+public class depths extends Game{
 	private SpriteBatch batch;
     private BitmapFont font;
 
@@ -25,13 +25,15 @@ public class depths extends ApplicationAdapter {
 	private Texture img;
 	@Override
 	public void create () {
-        
+
+        Gdx.app.log("depths", "created");
 		batch = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("arial-15.fnt"),false);
         font.setColor(Color.RED);
         world = new World();
         player = new Player(world);
 		img = new Texture("badlogic.jpg");
+		setScreen(new GameScreen());
 		
 	}
 
@@ -50,7 +52,7 @@ public class depths extends ApplicationAdapter {
 		batch.draw(img, 0, 0, 1000, 1000);
         font.draw(batch, "Hello World", 300, 200);
         world.render(batch);
-        player.render(batch, elapsedTime);
+        player.draw(batch, 0f);
 		batch.end();
         elapsedTime += deltaTime;
 	}
@@ -60,6 +62,7 @@ public class depths extends ApplicationAdapter {
 	@Override
 	public void resize(final int width, final int height) {
 		world.getLights().resize(width, height);
+		super.resize(width, height);
 	}
 	
     @Override

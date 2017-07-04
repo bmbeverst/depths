@@ -1,34 +1,36 @@
-package com.depths.game.entities;
+package com.depths.game.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.depths.game.lighting.Light;
 import com.depths.game.world.World;
 
 
-public class Player {
+public class Player extends Actor{
 
 	private TextureAtlas standRight;
-	private Animation animationStandRight;
+	private Animation<TextureRegion> animationStandRight;
 	private TextureAtlas goRight;
-	private Animation animationGoRight;
+	private Animation<TextureRegion> animationGoRight;
 	private int height;
 	private int width;
 	private boolean left;
 	
-    private Animation currentAnimation;
+    private Animation<TextureRegion> currentAnimation;
     
     private float x = 100;
     private float y = 250;
 	private TextureRegion textureRegion;
 	private TextureAtlas attackRight;
-	private Animation animationAttackRight;
+	private Animation<TextureRegion> animationAttackRight;
 	private TextureAtlas jumpRight;
-	private Animation animationJumpRight;
+	private Animation<TextureRegion> animationJumpRight;
+    private float stateTime = 0f;
 	 
 	private boolean jump = false;
 	private int jumpTime = 0;
@@ -37,15 +39,15 @@ public class Player {
 
 	public Player(World world){
 		standRight = new TextureAtlas(Gdx.files.internal("animations/StandRight-packed/pack.atlas"));
-		animationStandRight = new Animation(1/2f, standRight.getRegions());
+		animationStandRight = new Animation<TextureRegion>(1/2f, standRight.getRegions());
 		goRight = new TextureAtlas(Gdx.files.internal("animations/GoRight-packed/pack.atlas"));
-		animationGoRight = new Animation(1/12f, goRight.getRegions());
+		animationGoRight = new Animation<TextureRegion>(1/12f, goRight.getRegions());
 		
 
 		jumpRight = new TextureAtlas(Gdx.files.internal("animations/JumpRight-packed/pack.atlas"));
-		animationJumpRight = new Animation(1/12f, jumpRight.getRegions());
+		animationJumpRight = new Animation<TextureRegion>(1/12f, jumpRight.getRegions());
 		attackRight = new TextureAtlas(Gdx.files.internal("animations/AttackRight-packed/pack.atlas"));
-		animationAttackRight = new Animation(1/50f, attackRight.getRegions());
+		animationAttackRight = new Animation<TextureRegion>(1/50f, attackRight.getRegions());
 		
 		height = standRight.findRegion("001").getRegionHeight();
 		width = standRight.findRegion("001").getRegionWidth();
@@ -87,10 +89,11 @@ public class Player {
             this.world.getLights().addLight(new Light(x, y, 50));
         } 
 	}
-	
-	public void render(SpriteBatch batch, float elapsedTime) {
 
-        textureRegion = currentAnimation.getKeyFrame(elapsedTime, true);
+    @Override
+	public void draw(Batch batch, float parentAlpha) {
+    	stateTime += Gdx.graphics.getDeltaTime();
+        textureRegion = currentAnimation.getKeyFrame(stateTime, true);
         batch.draw(textureRegion, left ? x+width : x, y, left ? -width : width, height);
 	}
 
