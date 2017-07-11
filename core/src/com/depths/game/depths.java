@@ -52,7 +52,7 @@ public class depths extends Game{
 		batch.draw(img, 0, 0, 1000, 1000);
         font.draw(batch, "Hello World", 300, 200);
         world.render(batch);
-        player.draw(batch, 0f);
+        player.draw(batch, elapsedTime);
 		batch.end();
         elapsedTime += deltaTime;
 	}
