@@ -7,6 +7,9 @@ import com.depths.game.depths;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+	      config.title = "Depths";
+	      config.width = 800;
+	      config.height = 480;
 		new LwjglApplication(new depths(), config);
 	}
 }
