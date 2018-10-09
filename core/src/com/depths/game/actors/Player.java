@@ -17,14 +17,10 @@ public class Player extends Actor{
 	private Animation<TextureRegion> animationStandRight;
 	private TextureAtlas goRight;
 	private Animation<TextureRegion> animationGoRight;
-	private int height;
-	private int width;
 	private boolean left;
 	
     private Animation<TextureRegion> currentAnimation;
     
-    private float x = 100;
-    private float y = 250;
 	private TextureRegion textureRegion;
 	private TextureAtlas attackRight;
 	private Animation<TextureRegion> animationAttackRight;
@@ -49,8 +45,9 @@ public class Player extends Actor{
 		attackRight = new TextureAtlas(Gdx.files.internal("animations/AttackRight-packed/pack.atlas"));
 		animationAttackRight = new Animation<TextureRegion>(1/50f, attackRight.getRegions());
 		
-		height = standRight.findRegion("001").getRegionHeight();
-		width = standRight.findRegion("001").getRegionWidth();
+		this.setSize(standRight.findRegion("001").getRegionHeight(), standRight.findRegion("001").getRegionWidth());
+		
+		this.setPosition(100, 250);
 		
 		this.world = world;
 	}
@@ -58,9 +55,9 @@ public class Player extends Actor{
 		if (jump) {
 			jumpTime --;
 			if (jumpTime >= maxJump/2) {
-				y += 2.0f;
+				this.moveBy(0,  2.0f);
 			} else {
-				y -= 2.0f;
+				this.moveBy(0,  -2.0f);
 			}
 			if (jumpTime < 1 ) {
 				jump = false;
@@ -70,13 +67,13 @@ public class Player extends Actor{
             jump = true;
             jumpTime = maxJump;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-        	x -= 1.5f;
+			this.moveBy(-1.5f,  0);
         	if (!jump) {
                 currentAnimation = animationGoRight;
         	}
             left = true;
         } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	x += 1.5f;
+			this.moveBy(1.5f,  0);
         	if (!jump) {
                 currentAnimation = animationGoRight;
         	}
@@ -86,7 +83,7 @@ public class Player extends Actor{
         }
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             currentAnimation = animationAttackRight;
-            this.world.getLights().addLight(new Light(x, y, 50));
+            this.world.getLights().addLight(new Light(this.getX(), this.getY(), 50));
         } 
 	}
 
@@ -94,6 +91,10 @@ public class Player extends Actor{
 	public void draw(Batch batch, float parentAlpha) {
     	stateTime += Gdx.graphics.getDeltaTime();
         textureRegion = currentAnimation.getKeyFrame(stateTime, true);
+        float x = this.getX();
+        float y = this.getY();
+        float width =  this.getWidth();
+        float height = this.getHeight();
         batch.draw(textureRegion, left ? x+width : x, y, left ? -width : width, height);
 	}
 
