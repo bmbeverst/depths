@@ -30,8 +30,10 @@ public class MenuScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 		
-    	// TODO temporary until we have asset manager in
-		Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+		parent.assetManager.queueAddSkin();  //new
+		parent.assetManager.manager.finishLoading(); // new
+		Skin skin = parent.assetManager.manager.get("skin/uiskin.json"); // new	
 		
 		// Create a table that fills the screen. Everything else will go inside this table.
 		Table table = new Table(skin);

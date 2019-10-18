@@ -1,0 +1,5 @@
+Source UI v1: https://github.com/czyzby/gdx-skins/tree/master/commodore64/skin
+
+Loading bar: https://kvsr.itch.io/cyberpunk-ui-package
+
+Loading fire: https://opengameart.org/content/animated-sprites-and-textures

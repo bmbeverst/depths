@@ -1,6 +1,8 @@
 package com.depths.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.audio.Music;
+import com.depths.game.loader.DepthsAssetManager;
 import com.depths.game.views.EndScreen;
 import com.depths.game.views.LoadingScreen;
 import com.depths.game.views.MainScreen;
@@ -15,6 +17,8 @@ public class Depths extends Game {
 	private MainScreen mainScreen;
 	private EndScreen endScreen;
 	private AppPreferences preferences;
+	public DepthsAssetManager assetManager = new DepthsAssetManager();
+	private Music playingSong;
 
 	
 	public static enum Screens
@@ -27,6 +31,15 @@ public class Depths extends Game {
 		loadingScreen = new LoadingScreen(this);
 		preferences = new AppPreferences();
 		setScreen(loadingScreen);
+		
+		// tells our asset manger that we want to load the images set in loadImages method
+		assetManager.queueAddMusic();
+		// tells the asset manager to load the images and wait until finished loading.
+		assetManager.manager.finishLoading();
+		// loads the 2 sounds we use
+		playingSong = assetManager.manager.get("music/Rolemusic_-_pl4y1ng.mp3");
+		
+		playingSong.play();
 	}
 	
 	public void changeScreen(Screens screen){
@@ -52,5 +65,11 @@ public class Depths extends Game {
 
 	public AppPreferences getPreferences() {
 		return this.preferences;
+	}
+	
+	@Override
+	public void dispose(){
+		playingSong.dispose();
+		assetManager.manager.dispose();
 	}
 }
