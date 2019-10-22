@@ -1,20 +1,18 @@
 package com.depths.game.physics;
 
+
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.depths.game.ecs.componet.CollisionComponent;
 
 public class B2dContactListener implements ContactListener {
-
-	private B2dModel parent;
 	
-	public B2dContactListener(B2dModel parent){
-		this.parent = parent;
+	public B2dContactListener(){ 
 	}
 	
 	@Override
@@ -24,41 +22,35 @@ public class B2dContactListener implements ContactListener {
 		Fixture fb = contact.getFixtureB();
 		Gdx.app.log(this.getClass().getSimpleName(), fa.getBody().getType()+" has hit "+ fb.getBody().getType());
 		
-		if(fa.getBody().getUserData() == "IAMTHESEA"){
-			parent.isSwimming = true;
+		if(fa.getBody().getUserData() instanceof Entity){
+			Entity ent = (Entity) fa.getBody().getUserData();
+			entityCollision(ent,fb);
 			return;
-		}else if(fb.getBody().getUserData() == "IAMTHESEA"){
-			parent.isSwimming = true;
+		}else if(fb.getBody().getUserData() instanceof Entity){
+			Entity ent = (Entity) fb.getBody().getUserData();
+			entityCollision(ent,fa);
 			return;
-		}
-		
-		if(fa.getBody().getType() == BodyType.StaticBody){
-			this.shootUpInAir(fa, fb);
-		}else if(fb.getBody().getType() == BodyType.StaticBody){
-			this.shootUpInAir(fb, fa);
-		}else{
-			// neither a nor b are static so do nothing
 		}
 	}
-	
-	private void shootUpInAir(Fixture staticFixture, Fixture otherFixture){
-		Gdx.app.log(this.getClass().getSimpleName(), "Adding Force");
-		otherFixture.getBody().applyForceToCenter(new Vector2(-1000,-1000), true);
-		parent.playSound(B2dModel.BOING_SOUND); 
+
+	private void entityCollision(Entity ent, Fixture fb) {
+		if(fb.getBody().getUserData() instanceof Entity){
+			Entity colEnt = (Entity) fb.getBody().getUserData();
+			
+			CollisionComponent col = ent.getComponent(CollisionComponent.class);
+			CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
+			
+			if(col != null){
+				col.collisionEntity = colEnt;
+			}else if(colb != null){
+				colb.collisionEntity = ent;
+			}
+		}
 	}
 
 	@Override
 	public void endContact(Contact contact) {
-		Gdx.app.log(this.getClass().getSimpleName(), "Contact");
-		Fixture fa = contact.getFixtureA();
-		Fixture fb = contact.getFixtureB();
-		if(fa.getBody().getUserData() == "IAMTHESEA"){
-			parent.isSwimming = false;
-			return;
-		}else if(fb.getBody().getUserData() == "IAMTHESEA"){
-			parent.isSwimming = false;
-			return;
-		}
+		Gdx.app.log(this.getClass().getSimpleName(), "Contact end");
 	}
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {		

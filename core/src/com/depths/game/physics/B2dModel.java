@@ -35,7 +35,7 @@ public class B2dModel {
 		createFloor();
 //		createObject();
 //		createMovingObject();
-		world.setContactListener(new B2dContactListener(this));
+		world.setContactListener(new B2dContactListener());
 		
 		// get our body factory singleton and store it in bodyFactory
 		BodyFactory bodyFactory = BodyFactory.getInstance(world);
