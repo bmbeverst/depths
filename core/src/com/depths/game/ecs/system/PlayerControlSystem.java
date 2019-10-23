@@ -30,6 +30,16 @@ public class PlayerControlSystem extends IteratingSystem{
 	protected void processEntity(Entity entity, float deltaTime) {
 		B2dBodyComponent b2body = bodm.get(entity);
 		StateComponent state = sm.get(entity);
+		PlayerComponent player = pm.get(entity);
+		
+		player.cam.position.y = b2body.body.getPosition().y;
+		
+		// make player jump very high
+		if(player.onSpring){
+			b2body.body.applyLinearImpulse(0, 175f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
+			state.set(StateComponent.STATE_JUMPING);
+			player.onSpring = false;
+		}
 		
 		if(b2body.body.getLinearVelocity().y > 0){
 			state.set(StateComponent.STATE_FALLING);

@@ -5,7 +5,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -53,6 +55,10 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<TextureComponent> textureM;
     private ComponentMapper<TransformComponent> transformM;
 
+	private int frameRate;
+
+	private BitmapFont font;
+
 	public RenderingSystem(SpriteBatch batch) {
         // gets all entities with a TransofmComponent and TextureComponent
         super(Family.all(TransformComponent.class, TextureComponent.class).get(), new ZComparator());
@@ -69,12 +75,16 @@ public class RenderingSystem extends SortedIteratingSystem {
         // set up the camera to match our screen size
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
+        
+        font = new BitmapFont();
+        font.setColor(Color.BLUE);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
+        
+        frameRate = Gdx.graphics.getFramesPerSecond();
         // sort the renderQueue based on z index
         renderQueue.sort(comparator);
         
@@ -83,6 +93,9 @@ public class RenderingSystem extends SortedIteratingSystem {
         batch.setProjectionMatrix(cam.combined);
         batch.enableBlending();
         batch.begin();
+        
+        // Broken
+        font.draw(batch, (int)frameRate + " fps", 3, Gdx.graphics.getHeight() - 3);
 
         // loop through each entity in our render queue
         for (Entity entity : renderQueue) {

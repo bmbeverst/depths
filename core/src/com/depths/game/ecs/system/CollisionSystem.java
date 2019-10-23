@@ -35,20 +35,30 @@ public class CollisionSystem  extends IteratingSystem {
 				case TypeComponent.ENEMY:
 					//do player hit enemy thing
 					Gdx.app.log(this.getClass().getSimpleName(), "player hit enemy");
+					pm.get(entity).isDead = true;
 					break;
 				case TypeComponent.SCENERY:
 					//do player hit scenery thing
-					Gdx.app.log(this.getClass().getSimpleName(), "player hit scenery");
+					pm.get(entity).onPlatform = true;
+//					Gdx.app.log(this.getClass().getSimpleName(), "player hit scenery");
 					break;
+				case TypeComponent.SPRING:
+					//do player hit other thing
+					pm.get(entity).onSpring = true;
+					Gdx.app.log(this.getClass().getSimpleName(), "player hit spring: bounce up");
+					break;	
 				case TypeComponent.OTHER:
 					//do player hit other thing
 					Gdx.app.log(this.getClass().getSimpleName(), "player hit other");
-					break; //technically this isn't needed				
+					break; 
+				default:
+					Gdx.app.log(this.getClass().getSimpleName(), "No matching type found");
 				}
 				cc.collisionEntity = null; // collision handled reset component
+			}else{
+				Gdx.app.log(this.getClass().getSimpleName(), "type == null");
 			}
 		}
-		
 	}
 
 }

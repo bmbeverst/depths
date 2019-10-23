@@ -17,10 +17,10 @@ public class B2dContactListener implements ContactListener {
 	
 	@Override
 	public void beginContact(Contact contact) {
-		Gdx.app.log(this.getClass().getSimpleName(), "Contact");
+//		Gdx.app.log(this.getClass().getSimpleName(), "Contact");
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		Gdx.app.log(this.getClass().getSimpleName(), fa.getBody().getType()+" has hit "+ fb.getBody().getType());
+//		Gdx.app.log(this.getClass().getSimpleName(), fa.getBody().getType()+" has hit "+ fb.getBody().getType());
 		
 		if(fa.getBody().getUserData() instanceof Entity){
 			Entity ent = (Entity) fa.getBody().getUserData();
@@ -50,7 +50,7 @@ public class B2dContactListener implements ContactListener {
 
 	@Override
 	public void endContact(Contact contact) {
-		Gdx.app.log(this.getClass().getSimpleName(), "Contact end");
+//		Gdx.app.log(this.getClass().getSimpleName(), "Contact end");
 	}
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {		
