@@ -26,6 +26,7 @@ import com.depths.game.ecs.componet.TransformComponent;
 import com.depths.game.ecs.componet.TypeComponent;
 import com.depths.game.ecs.system.AnimationSystem;
 import com.depths.game.ecs.system.CollisionSystem;
+import com.depths.game.ecs.system.EnemySystem;
 import com.depths.game.ecs.system.LevelGenerationSystem;
 import com.depths.game.ecs.system.PhysicsDebugSystem;
 import com.depths.game.ecs.system.PhysicsSystem;
@@ -33,7 +34,7 @@ import com.depths.game.ecs.system.PlayerControlSystem;
 import com.depths.game.ecs.system.RenderingSystem;
 import com.depths.game.physics.B2dContactListener;
 import com.depths.game.physics.B2dModel;
-import com.depths.game.physics.BodyFactory;
+import com.depths.game.physics.factory.BodyFactory;
 import com.depths.game.physics.factory.LevelFactory;
 
 public class MainScreen implements Screen {
@@ -57,7 +58,7 @@ public class MainScreen implements Screen {
 
 		//create a pooled engine
 		engine = new PooledEngine();
-		lvlFactory = new LevelFactory(engine,atlas.findRegion("player"));
+		lvlFactory = new LevelFactory(engine, atlas);
 
 		sb = new SpriteBatch();
 	    // Create our new rendering system
@@ -73,9 +74,10 @@ public class MainScreen implements Screen {
         engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera()));
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new PlayerControlSystem(controller));
+        engine.addSystem(new EnemySystem());
         engine.addSystem(new LevelGenerationSystem(lvlFactory));
         
-        lvlFactory.createPlayer(atlas.findRegion("player"),cam);
+        lvlFactory.createPlayer(cam);
         lvlFactory.createFloor(atlas.findRegion("player"));
 	}
 	

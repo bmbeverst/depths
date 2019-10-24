@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.depths.game.controllers.KeyboardController;
 import com.depths.game.loader.DepthsAssetManager;
+import com.depths.game.physics.factory.BodyFactory;
 
 public class B2dModel {
 	

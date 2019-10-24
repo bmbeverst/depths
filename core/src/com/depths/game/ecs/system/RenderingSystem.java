@@ -18,7 +18,7 @@ import java.util.Comparator;
 
 public class RenderingSystem extends SortedIteratingSystem {
 
-    static final float PPM = 32.0f; // sets the amount of pixels each meter of box2d objects contains
+    public static final float PPM = 32.0f; // sets the amount of pixels each meter of box2d objects contains
 
     // this gets the height and width of our camera frustrum based off the width and height of the screen and our pixel per meter ratio
     static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
@@ -71,6 +71,8 @@ public class RenderingSystem extends SortedIteratingSystem {
         renderQueue = new Array<Entity>();
      
         this.batch = batch;  // set our batch to the one supplied in constructor
+        
+        comparator = new ZComparator();
 
         // set up the camera to match our screen size
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);

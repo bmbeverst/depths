@@ -38,8 +38,10 @@ public class Depths extends Game {
 		assetManager.manager.finishLoading();
 		// loads the 2 sounds we use
 		playingSong = assetManager.manager.get("music/Rolemusic_-_pl4y1ng.mp3");
+		if (preferences.isMusicEnabled()) {
+			playingSong.play();
+		}
 		
-		playingSong.play();
 	}
 	
 	public void changeScreen(Screens screen){
