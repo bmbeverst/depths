@@ -52,7 +52,7 @@ public class LoadingScreen implements Screen {
 		loadAssets();
 		// initiate queueing of images but don't start loading
 		parent.assetManager.queueAddImages();
-		Gdx.app.log(this.getClass().getSimpleName(), "Loading images....");
+		Gdx.app.log(this.getClass().getSimpleName(), "Loading loader images....");
 	}
 	
 	@Override
@@ -143,13 +143,6 @@ public class LoadingScreen implements Screen {
 		
 		stage.act();
 		stage.draw();
-	}
-	
-	private void drawLoadingBar(Progress stage){
-		int value = stage.ordinal();
-		for(int i = 0; i < value;i++){
-			sb.draw(dash, 80 + (i * 100), 140, 80, 40); 
-		}
 	}
 
 	@Override

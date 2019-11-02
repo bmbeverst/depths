@@ -21,7 +21,6 @@ public class MenuScreen implements Screen {
 	public MenuScreen(Depths box2dTutorial){
 		parent = box2dTutorial;     // setting the argument to our field.
 		stage = new Stage(new ScreenViewport());
-		Gdx.input.setInputProcessor(stage);
 		
 	}
 	

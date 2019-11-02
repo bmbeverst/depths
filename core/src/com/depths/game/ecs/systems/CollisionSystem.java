@@ -1,15 +1,15 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.depths.game.ecs.componet.CollisionComponent;
-import com.depths.game.ecs.componet.EnemyComponent;
-import com.depths.game.ecs.componet.Mapper;
-import com.depths.game.ecs.componet.PlayerComponent;
-import com.depths.game.ecs.componet.TypeComponent;
+import com.depths.game.ecs.componets.CollisionComponent;
+import com.depths.game.ecs.componets.EnemyComponent;
+import com.depths.game.ecs.componets.Mapper;
+import com.depths.game.ecs.componets.PlayerComponent;
+import com.depths.game.ecs.componets.TypeComponent;
 
 public class CollisionSystem  extends IteratingSystem {
 	 ComponentMapper<CollisionComponent> cm;
@@ -48,7 +48,7 @@ public class CollisionSystem  extends IteratingSystem {
 					case SCENERY:
 						//do player hit scenery thing
 						pm.get(entity).onPlatform = true;
-						Gdx.app.log(this.getClass().getSimpleName(), "player hit scenery");
+//						Gdx.app.log(this.getClass().getSimpleName(), "player hit scenery");
 						break;
 					case SPRING:
 						//do player hit other thing
@@ -63,7 +63,7 @@ public class CollisionSystem  extends IteratingSystem {
 						Gdx.app.log(this.getClass().getSimpleName(), "Player just shot. bullet in player atm");
 						break;
 					default:
-						Gdx.app.log(this.getClass().getSimpleName(), "No matching type found");
+						Gdx.app.log(this.getClass().getSimpleName(), "Player no matching type found");
 					}
 					cc.collisionEntity = null; // collision handled reset component
 				}else{
@@ -94,8 +94,9 @@ public class CollisionSystem  extends IteratingSystem {
 						EnemyComponent enemy = Mapper.enemyCom.get(entity);
 						enemy.isDead = true;
 						Gdx.app.log(this.getClass().getSimpleName(), "enemy got shot");
+						break;
 					default:
-						Gdx.app.log(this.getClass().getSimpleName(), "No matching type found");
+						Gdx.app.log(this.getClass().getSimpleName(), "Enemy no matching type found");
 					}
 					cc.collisionEntity = null; // collision handled reset component
 				}else{

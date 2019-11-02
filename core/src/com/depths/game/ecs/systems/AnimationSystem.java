@@ -1,4 +1,4 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -6,9 +6,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.depths.game.ecs.componet.AnimationComponent;
-import com.depths.game.ecs.componet.StateComponent;
-import com.depths.game.ecs.componet.TextureComponent;
+import com.depths.game.ecs.componets.AnimationComponent;
+import com.depths.game.ecs.componets.StateComponent;
+import com.depths.game.ecs.componets.TextureComponent;
 
 public class AnimationSystem extends IteratingSystem {
 

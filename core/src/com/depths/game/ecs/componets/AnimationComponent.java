@@ -1,4 +1,4 @@
-package com.depths.game.ecs.componet;
+package com.depths.game.ecs.componets;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.Animation;

@@ -1,16 +1,17 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.depths.game.ecs.componet.B2dBodyComponent;
-import com.depths.game.ecs.componet.TransformComponent;
+import com.depths.game.ecs.componets.B2dBodyComponent;
+import com.depths.game.ecs.componets.TransformComponent;
 
 
 public class PhysicsSystem extends IteratingSystem {
@@ -47,6 +48,11 @@ public class PhysicsSystem extends IteratingSystem {
                 tfm.position.x = position.x;
                 tfm.position.y = position.y;
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
+                if(bodyComp.isDead){
+                	Gdx.app.log(this.getClass().getSimpleName(), "Removing a body and entity");
+                	world.destroyBody(bodyComp.body);
+                	getEngine().removeEntity(entity);
+                }
             }
         }
         bodiesQueue.clear();

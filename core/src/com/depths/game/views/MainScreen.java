@@ -17,21 +17,22 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.depths.game.Depths;
 import com.depths.game.controllers.KeyboardController;
-import com.depths.game.ecs.componet.B2dBodyComponent;
-import com.depths.game.ecs.componet.CollisionComponent;
-import com.depths.game.ecs.componet.PlayerComponent;
-import com.depths.game.ecs.componet.StateComponent;
-import com.depths.game.ecs.componet.TextureComponent;
-import com.depths.game.ecs.componet.TransformComponent;
-import com.depths.game.ecs.componet.TypeComponent;
-import com.depths.game.ecs.system.AnimationSystem;
-import com.depths.game.ecs.system.CollisionSystem;
-import com.depths.game.ecs.system.EnemySystem;
-import com.depths.game.ecs.system.LevelGenerationSystem;
-import com.depths.game.ecs.system.PhysicsDebugSystem;
-import com.depths.game.ecs.system.PhysicsSystem;
-import com.depths.game.ecs.system.PlayerControlSystem;
-import com.depths.game.ecs.system.RenderingSystem;
+import com.depths.game.ecs.componets.B2dBodyComponent;
+import com.depths.game.ecs.componets.CollisionComponent;
+import com.depths.game.ecs.componets.PlayerComponent;
+import com.depths.game.ecs.componets.StateComponent;
+import com.depths.game.ecs.componets.TextureComponent;
+import com.depths.game.ecs.componets.TransformComponent;
+import com.depths.game.ecs.componets.TypeComponent;
+import com.depths.game.ecs.systems.AnimationSystem;
+import com.depths.game.ecs.systems.BulletSystem;
+import com.depths.game.ecs.systems.CollisionSystem;
+import com.depths.game.ecs.systems.EnemySystem;
+import com.depths.game.ecs.systems.LevelGenerationSystem;
+import com.depths.game.ecs.systems.PhysicsDebugSystem;
+import com.depths.game.ecs.systems.PhysicsSystem;
+import com.depths.game.ecs.systems.PlayerControlSystem;
+import com.depths.game.ecs.systems.RenderingSystem;
 import com.depths.game.physics.B2dContactListener;
 import com.depths.game.physics.B2dModel;
 import com.depths.game.physics.factory.BodyFactory;
@@ -73,18 +74,18 @@ public class MainScreen implements Screen {
         engine.addSystem(renderingSystem);
         engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera()));
         engine.addSystem(new CollisionSystem());
-        engine.addSystem(new PlayerControlSystem(controller));
+        engine.addSystem(new PlayerControlSystem(controller, lvlFactory));
         engine.addSystem(new EnemySystem());
+        Entity player = lvlFactory.createPlayer(cam);
+        engine.addSystem(new BulletSystem(player));
         engine.addSystem(new LevelGenerationSystem(lvlFactory));
         
-        lvlFactory.createPlayer(cam);
         lvlFactory.createFloor(atlas.findRegion("player"));
 	}
 	
 	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(controller);	
 	}
 

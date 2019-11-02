@@ -1,4 +1,4 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.depths.game.ecs.componet.TextureComponent;
-import com.depths.game.ecs.componet.TransformComponent;
+import com.depths.game.ecs.componets.TextureComponent;
+import com.depths.game.ecs.componets.TransformComponent;
 
 import java.util.Comparator;
 

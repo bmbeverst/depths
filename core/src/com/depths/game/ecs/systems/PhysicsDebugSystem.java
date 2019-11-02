@@ -1,4 +1,4 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;

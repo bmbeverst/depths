@@ -9,15 +9,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
-import com.depths.game.ecs.componet.B2dBodyComponent;
-import com.depths.game.ecs.componet.CollisionComponent;
-import com.depths.game.ecs.componet.EnemyComponent;
-import com.depths.game.ecs.componet.PlayerComponent;
-import com.depths.game.ecs.componet.StateComponent;
-import com.depths.game.ecs.componet.TextureComponent;
-import com.depths.game.ecs.componet.TransformComponent;
-import com.depths.game.ecs.componet.TypeComponent;
-import com.depths.game.ecs.system.RenderingSystem;
+import com.depths.game.ecs.componets.B2dBodyComponent;
+import com.depths.game.ecs.componets.BulletComponent;
+import com.depths.game.ecs.componets.CollisionComponent;
+import com.depths.game.ecs.componets.EnemyComponent;
+import com.depths.game.ecs.componets.PlayerComponent;
+import com.depths.game.ecs.componets.StateComponent;
+import com.depths.game.ecs.componets.TextureComponent;
+import com.depths.game.ecs.componets.TransformComponent;
+import com.depths.game.ecs.componets.TypeComponent;
+import com.depths.game.ecs.systems.RenderingSystem;
 import com.depths.game.physics.B2dContactListener;
 import com.depths.game.simplexnoise.SimplexNoise;
 import com.depths.game.util.DFUtils;
@@ -97,6 +98,36 @@ public class LevelFactory {
 			}
 	    	currentLevel++;
 		}	
+	}
+	
+	public Entity createBullet(float x, float y, float xVel, float yVel){
+		Entity entity = engine.createEntity();
+		B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
+		TransformComponent position = engine.createComponent(TransformComponent.class);
+		TextureComponent texture = engine.createComponent(TextureComponent.class);
+		TypeComponent type = engine.createComponent(TypeComponent.class);
+		CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+		BulletComponent bul = engine.createComponent(BulletComponent.class);
+		
+		b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.Materials.STONE, BodyType.DynamicBody,true);
+		b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
+		bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
+		position.position.set(x,y,0);
+		texture.region = atlas.findRegion("player");;
+		type.type = TypeComponent.Types.BULLET;
+		b2dbody.body.setUserData(entity);
+		bul.xVel = xVel;
+		bul.yVel = yVel;
+		
+		entity.add(bul);
+		entity.add(colComp);
+		entity.add(b2dbody);
+		entity.add(position);
+		entity.add(texture);
+		entity.add(type);	
+		
+		engine.addEntity(entity);
+		return entity;
 	}
 	
 	public Entity createEnemy(TextureRegion tex, float x, float y){
@@ -188,7 +219,7 @@ public class LevelFactory {
 		engine.addEntity(entity);
 	}
 	
-	public void createPlayer(OrthographicCamera cam){
+	public Entity createPlayer(OrthographicCamera cam){
 	
 		Entity entity = engine.createEntity();
 		B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
@@ -218,6 +249,8 @@ public class LevelFactory {
 		entity.add(stateCom);
 		
 		engine.addEntity(entity);
+		
+		return entity;
 		
 	}
 }

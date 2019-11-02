@@ -1,11 +1,11 @@
-package com.depths.game.ecs.system;
+package com.depths.game.ecs.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.depths.game.ecs.componet.B2dBodyComponent;
-import com.depths.game.ecs.componet.EnemyComponent;
+import com.depths.game.ecs.componets.B2dBodyComponent;
+import com.depths.game.ecs.componets.EnemyComponent;
 
 public class EnemySystem extends IteratingSystem{
 
@@ -36,5 +36,12 @@ public class EnemySystem extends IteratingSystem{
 		bodyCom.body.setTransform(bodyCom.body.getPosition().x + speed,
 				bodyCom.body.getPosition().y, 
 				bodyCom.body.getAngle());		
+
+		// check for dead enemies
+		if(enemyCom.isDead){
+			bodyCom.isDead =true;
+		}
 	}
+	
+	
 }
