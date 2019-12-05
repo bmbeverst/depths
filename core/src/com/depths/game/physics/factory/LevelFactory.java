@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
@@ -20,6 +21,7 @@ import com.depths.game.ecs.componets.TransformComponent;
 import com.depths.game.ecs.componets.TypeComponent;
 import com.depths.game.ecs.systems.RenderingSystem;
 import com.depths.game.physics.B2dContactListener;
+import com.depths.game.simplexnoise.OpenSimplexNoise;
 import com.depths.game.simplexnoise.SimplexNoise;
 import com.depths.game.util.DFUtils;
 
@@ -35,6 +37,7 @@ public class LevelFactory {
 	private TextureRegion platformTex;
 	private SimplexNoise simRough;
 	private TextureAtlas atlas;
+	private OpenSimplexNoise openSim;
 	
 	public LevelFactory(PooledEngine en, TextureAtlas atlas){
 		engine = en;
@@ -47,16 +50,55 @@ public class LevelFactory {
 		bodyFactory = BodyFactory.getInstance(world);
 			
 		// create a new SimplexNoise (size,roughness,seed)
-		sim = new SimplexNoise(512, 0.80f, 1);
-		simRough = new SimplexNoise(512, 0.95f, 1);
+//		sim = new SimplexNoise(512, 0.80f, 1);
+//		simRough = new SimplexNoise(512, 0.95f, 1);
+		
+		openSim = new OpenSimplexNoise(MathUtils.random(2000l));
 			
 	}
 
-
+	
+	 
 	/** Creates a pair of platforms per level up to yLevel
 	 * @param ylevel
 	 */
 	public void generateLevel(int ylevel){
+		while(ylevel > currentLevel){
+	    	int range = 15;
+	    	for(int i = 1; i < 5; i ++){
+		    	generateSingleColumn(genNForL(i * 1,currentLevel)
+		    			,genNForL(i * 100,currentLevel)
+		    			,genNForL(i * 200,currentLevel)
+		    			,genNForL(i * 300,currentLevel)
+		    			,range,i * 10);
+	    	}
+	    	currentLevel++;
+		}
+	}
+		
+	// generate noise for level
+	private float genNForL(int level, int height){
+		return (float)openSim.eval(height, level);
+	}
+	 
+	private void generateSingleColumn(float n1, float n2,float n3,float n4, int range, int offset){
+	    	if(n1 > -0.8f){
+	  		createPlatform(n2 * range + offset ,currentLevel * 2);
+	    		if(n3 > 0.3f){
+	    			// add bouncy platform
+	    			createBouncyPlatform(n2 * range + offset,currentLevel * 2);
+	    		}
+	    		if(n4 > 0.2f){
+	    			// add an enemy
+	    			createEnemy(enemyTex,n2 * range + offset,currentLevel * 2 + 1);
+	    		}
+	    	}
+	}
+
+	/** Creates a pair of platforms per level up to yLevel
+	 * @param ylevel
+	 */
+	public void generateLevelOld(int ylevel){
 //		Gdx.app.log(this.getClass().getSimpleName(), "Create at: " + ylevel);
 		while(ylevel > currentLevel){
 			// get noise      sim.getNoise(xpos,ypos,zpos) 3D noise

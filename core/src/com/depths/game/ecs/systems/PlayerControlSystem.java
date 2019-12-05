@@ -40,8 +40,9 @@ public class PlayerControlSystem extends IteratingSystem{
 		
 		// make player jump very high
 		if(player.onSpring){
-			b2body.body.applyLinearImpulse(0, 175f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
-			state.set(StateComponent.STATE_JUMPING);
+			// b2body.body.applyLinearImpulse(0, 175f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true); // old
+			b2body.body.setTransform(b2body.body.getPosition().x, b2body.body.getPosition().y+ 10, b2body.body.getAngle());  // new
+			// state.set(StateComponent.STATE_JUMPING); //old removed
 			player.onSpring = false;
 		}
 		

@@ -24,4 +24,7 @@ done < $1
 exit
 
 
-# n=0; for f in *.png; do mv "$f" "fireball_$((n++)).png"; done
+# n=0; for f in *.png; do mv "$f" "fireball_`printf %03d n++`.png"; done
+
+# n=0; for f in *.png; do mv "$f" "torchlight_`printf %03d $n`.png"; ((n++)); done
+
