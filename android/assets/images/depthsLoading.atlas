@@ -24,63 +24,63 @@ fireball/fireball
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 56
+  index: 22
 fireball/fireball
   rotate: false
   xy: 260, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 59
+  index: 23
 fireball/fireball
   rotate: false
   xy: 2, 86
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 63
+  index: 24
 fireball/fireball
   rotate: false
   xy: 68, 152
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 14
+  index: 48
 fireball/fireball
   rotate: false
   xy: 260, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 50
+  index: 26
 fireball/fireball
   rotate: false
   xy: 326, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 51
+  index: 27
 fireball/fireball
   rotate: false
   xy: 2, 20
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 52
+  index: 28
 fireball/fireball
   rotate: false
   xy: 68, 86
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 53
+  index: 57
 fireball/fireball
   rotate: false
   xy: 134, 152
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 10
+  index: 12
 fireball/fireball
   rotate: false
   xy: 260, 278
@@ -94,375 +94,375 @@ fireball/fireball
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 12
+  index: 54
 fireball/fireball
   rotate: false
   xy: 392, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 13
+  index: 58
 fireball/fireball
   rotate: false
   xy: 68, 20
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 58
+  index: 29
 fireball/fireball
   rotate: false
   xy: 134, 86
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 15
+  index: 30
 fireball/fireball
   rotate: false
   xy: 326, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 16
+  index: 31
 fireball/fireball
   rotate: false
   xy: 392, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 17
+  index: 32
 fireball/fireball
   rotate: false
   xy: 458, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 18
+  index: 33
 fireball/fireball
   rotate: false
   xy: 134, 20
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 19
+  index: 34
 fireball/fireball
   rotate: false
   xy: 392, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 11
+  index: 35
 fireball/fireball
   rotate: false
   xy: 458, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 60
+  index: 36
 fireball/fireball
   rotate: false
   xy: 524, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 61
+  index: 37
 fireball/fireball
   rotate: false
   xy: 458, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 62
+  index: 38
 fireball/fireball
   rotate: false
   xy: 524, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 20
+  index: 39
 fireball/fireball
   rotate: false
   xy: 590, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 21
+  index: 63
 fireball/fireball
   rotate: false
   xy: 524, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 22
+  index: 0
 fireball/fireball
   rotate: false
   xy: 590, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 23
+  index: 40
 fireball/fireball
   rotate: false
   xy: 656, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 24
+  index: 41
 fireball/fireball
   rotate: false
   xy: 590, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 25
+  index: 42
 fireball/fireball
   rotate: false
   xy: 656, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 26
+  index: 43
 fireball/fireball
   rotate: false
   xy: 722, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 27
+  index: 44
 fireball/fireball
   rotate: false
   xy: 656, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 28
+  index: 45
 fireball/fireball
   rotate: false
   xy: 722, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 54
+  index: 46
 fireball/fireball
   rotate: false
   xy: 788, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
+  index: 47
 fireball/fireball
   rotate: false
   xy: 722, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
+  index: 4
 fireball/fireball
   rotate: false
   xy: 788, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
+  index: 5
 fireball/fireball
   rotate: false
   xy: 854, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
+  index: 6
 fireball/fireball
   rotate: false
   xy: 788, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
+  index: 7
 fireball/fireball
   rotate: false
   xy: 854, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 5
+  index: 8
 fireball/fireball
   rotate: false
   xy: 920, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 6
+  index: 9
 fireball/fireball
   rotate: false
   xy: 854, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 7
+  index: 2
 fireball/fireball
   rotate: false
   xy: 920, 344
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 8
+  index: 1
 fireball/fireball
   rotate: false
   xy: 920, 278
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 9
+  index: 50
 fireball/fireball
   rotate: false
   xy: 200, 152
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 30
+  index: 51
 fireball/fireball
   rotate: false
   xy: 200, 86
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 31
+  index: 52
 fireball/fireball
   rotate: false
   xy: 200, 20
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 32
+  index: 53
 fireball/fireball
   rotate: false
   xy: 266, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 33
+  index: 10
 fireball/fireball
   rotate: false
   xy: 266, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 34
+  index: 11
 fireball/fireball
   rotate: false
   xy: 332, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 35
+  index: 56
 fireball/fireball
   rotate: false
   xy: 266, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 36
+  index: 13
 fireball/fireball
   rotate: false
   xy: 332, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 37
+  index: 14
 fireball/fireball
   rotate: false
   xy: 398, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 38
+  index: 59
 fireball/fireball
   rotate: false
   xy: 332, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 39
+  index: 16
 fireball/fireball
   rotate: false
   xy: 398, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 40
+  index: 17
 fireball/fireball
   rotate: false
   xy: 464, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 41
+  index: 18
 fireball/fireball
   rotate: false
   xy: 398, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 42
+  index: 19
 fireball/fireball
   rotate: false
   xy: 464, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 43
+  index: 25
 fireball/fireball
   rotate: false
   xy: 530, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 44
+  index: 15
 fireball/fireball
   rotate: false
   xy: 464, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 45
+  index: 49
 fireball/fireball
   rotate: false
   xy: 530, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 46
+  index: 60
 fireball/fireball
   rotate: false
   xy: 596, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 47
+  index: 61
 fireball/fireball
   rotate: false
   xy: 530, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 48
+  index: 62
 fireball/fireball
   rotate: false
   xy: 596, 146
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 49
+  index: 3
 fireball/fireball
   rotate: false
   xy: 662, 212
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 57
+  index: 20
 fireball/fireball
   rotate: false
   xy: 596, 80
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 29
+  index: 21
