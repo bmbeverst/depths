@@ -114,6 +114,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
             float originX = width/2f;
             float originY = height/2f;
+            originY = originY + tex.y_off_set;
 
             batch.draw(tex.region,
                     t.position.x - originX, t.position.y - originY,

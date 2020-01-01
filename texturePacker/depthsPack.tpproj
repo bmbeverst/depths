@@ -1,6 +1,6 @@
 name=depthsGame
 filename=
-output=output
+output=../../../../../opt/dotFile/eclipse-workspace/depths2/texturePacker/output
 
 alias=true
 alphaThreshold=0
@@ -32,14 +32,14 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:input/game,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
+inputFiles=[{path:input/game,type:Input,dirFilePrefix:null,recursive:true,flattenPaths:false}]
 
 
 ---
 
 name=depthsLoading
 filename=
-output=output
+output=../../../../../opt/dotFile/eclipse-workspace/depths2/texturePacker/output
 
 alias=true
 alphaThreshold=0

@@ -13,6 +13,7 @@ public class PhysicsDebugSystem extends IteratingSystem {
     private Box2DDebugRenderer debugRenderer;
     private World world;
     private OrthographicCamera camera;
+    private boolean debug = false;   // turn off with false on with true
 
     public PhysicsDebugSystem(World world, OrthographicCamera camera){
         super(Family.all().get());
@@ -24,7 +25,7 @@ public class PhysicsDebugSystem extends IteratingSystem {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        debugRenderer.render(world, camera.combined);
+        if (debug) debugRenderer.render(world, camera.combined);
     }
 
     @Override

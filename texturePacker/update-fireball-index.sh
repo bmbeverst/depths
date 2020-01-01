@@ -24,7 +24,7 @@ done < $1
 exit
 
 # Fireball processing
-# n=0; for f in *.png; do mv "$f" "fireball_`printf %03d $n`.png"; ((n++)); done
+# n=0; for f in `ls *.png | sort`; do mv "$f" "fireball_`printf %03d $n`.png"; ((n++)); done
 # mogrify -modulate 90,100,10 fireball*
 # mogrify -channel rgba -alpha set -fuzz 4% -fill none -opaque "#000000" fireball*
 

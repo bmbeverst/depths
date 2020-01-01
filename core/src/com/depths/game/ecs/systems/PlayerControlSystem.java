@@ -20,8 +20,6 @@ public class PlayerControlSystem extends IteratingSystem{
 	KeyboardController controller;
 	private LevelFactory lvlFactory;
 	
-	
-	@SuppressWarnings("unchecked")
 	public PlayerControlSystem(KeyboardController keyCon, LevelFactory lvlf) {
 		super(Family.all(PlayerComponent.class).get());
 		lvlFactory = lvlf;
@@ -46,7 +44,7 @@ public class PlayerControlSystem extends IteratingSystem{
 			player.onSpring = false;
 		}
 		
-		if(b2body.body.getLinearVelocity().y > 0){
+		if(b2body.body.getLinearVelocity().y > 0 && state.get() != StateComponent.STATE_FALLING){  // NEW
 			state.set(StateComponent.STATE_FALLING);
 		}
 		
@@ -54,8 +52,17 @@ public class PlayerControlSystem extends IteratingSystem{
 			if(state.get() == StateComponent.STATE_FALLING){
 				state.set(StateComponent.STATE_NORMAL);
 			}
-			if(b2body.body.getLinearVelocity().x != 0){
+			if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING){
 				state.set(StateComponent.STATE_MOVING);
+			}
+		}
+		
+		if(b2body.body.getLinearVelocity().y < 0 && state.get() == StateComponent.STATE_FALLING){
+			// player is actually falling. check if they are on platform
+			if(player.onPlatform){
+				//overwrite old y value with 0 t stop falling but keep x vel
+				b2body.body.setLinearVelocity(b2body.body.getLinearVelocity().x, 0f);
+				player.onPlatform = true;
 			}
 		}
 		
@@ -71,10 +78,12 @@ public class PlayerControlSystem extends IteratingSystem{
 		}
 		
 		if(controller.up && 
-				(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
+				(state.get() == StateComponent.STATE_NORMAL ||
+				state.get() == StateComponent.STATE_MOVING)){
 			//b2body.body.applyForceToCenter(0, 3000,true);
 			b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 			state.set(StateComponent.STATE_JUMPING);
+			player.onPlatform = false;
 		}
 		
 		if(player.timeSinceLastShot > 0){
