@@ -6,12 +6,12 @@ import com.depths.game.Depths;
 public class EndScreen implements Screen {
 
 	private Depths parent; // a field to store our orchestrator
-	 
+
 	// our constructor with a Box2DTutorial argument
-	public EndScreen(Depths box2dTutorial){
-		parent = box2dTutorial;     // setting the argument to our field.
+	public EndScreen(Depths box2dTutorial) {
+		parent = box2dTutorial; // setting the argument to our field.
 	}
-	
+
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub

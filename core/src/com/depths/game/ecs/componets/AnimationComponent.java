@@ -5,5 +5,5 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.IntMap;
 
 public class AnimationComponent implements Component {
-    public IntMap<Animation> animations = new IntMap<Animation>();
+	public IntMap<Animation> animations = new IntMap<Animation>();
 }

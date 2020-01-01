@@ -10,11 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LoadingBarPart extends Actor {
 
-	
 	private Animation<TextureRegion> flameAnimation;
 	private AtlasRegion image;
 	private TextureRegion currentFrame;
-	private float stateTime = 0f; 
+	private float stateTime = 0f;
 
 	public LoadingBarPart(AtlasRegion ar, Animation<TextureRegion> an) {
 		super();
@@ -28,9 +27,9 @@ public class LoadingBarPart extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		//batch.draw(image, getX(),getY(), 80, 40);
+		// batch.draw(image, getX(),getY(), 80, 40);
 		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
-		batch.draw(currentFrame, getX()-5,getY(), 64, 64);
+		batch.draw(currentFrame, getX() - 5, getY(), 64, 64);
 		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
@@ -38,8 +37,7 @@ public class LoadingBarPart extends Actor {
 	public void act(float delta) {
 		super.act(delta);
 		stateTime += delta; // Accumulate elapsed animation time
-	    currentFrame = flameAnimation.getKeyFrame(stateTime, true);
+		currentFrame = flameAnimation.getKeyFrame(stateTime, true);
 	}
-	
-	
+
 }

@@ -3,6 +3,7 @@ package com.depths.game.ecs.componets;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Pool.Poolable;
+
 /*
  *  Stores collision data such as entity that this entity has collided with
  */

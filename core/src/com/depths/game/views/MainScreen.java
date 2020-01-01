@@ -47,54 +47,52 @@ public class MainScreen implements Screen {
 	private PooledEngine engine;
 	private TextureAtlas atlas;
 	private LevelFactory lvlFactory;
-	 
+
 	// our constructor with a depths argument
-	public MainScreen(Depths depths){
-		parent = depths;     // setting the argument to our field.
+	public MainScreen(Depths depths) {
+		parent = depths; // setting the argument to our field.
 
 		// gets the images as a texture
 		atlas = parent.assetManager.manager.get("images/depthsGame.atlas"); // new
-		
+
 		controller = new KeyboardController();
 
-		//create a pooled engine
+		// create a pooled engine
 		engine = new PooledEngine();
 		lvlFactory = new LevelFactory(engine, atlas);
 
 		sb = new SpriteBatch();
-	    // Create our new rendering system
+		// Create our new rendering system
 		RenderingSystem renderingSystem = new RenderingSystem(sb);
 		cam = renderingSystem.getCamera();
 		sb.setProjectionMatrix(cam.combined);
-			
 
-        // add all the relevant systems our engine should run
-        engine.addSystem(new AnimationSystem());
-        engine.addSystem(new PhysicsSystem(lvlFactory.world));
-        engine.addSystem(renderingSystem);
-        engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera()));
-        engine.addSystem(new CollisionSystem());
-        engine.addSystem(new PlayerControlSystem(controller, lvlFactory));
-        engine.addSystem(new EnemySystem());
-        Entity player = lvlFactory.createPlayer(cam);
-        engine.addSystem(new BulletSystem(player));
-        engine.addSystem(new LevelGenerationSystem(lvlFactory));
-        
-        lvlFactory.createFloor(atlas.findRegion("player"));
+		// add all the relevant systems our engine should run
+		engine.addSystem(new AnimationSystem());
+		engine.addSystem(new PhysicsSystem(lvlFactory.world));
+		engine.addSystem(renderingSystem);
+		engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera()));
+		engine.addSystem(new CollisionSystem());
+		engine.addSystem(new PlayerControlSystem(controller, lvlFactory));
+		engine.addSystem(new EnemySystem());
+		Entity player = lvlFactory.createPlayer(cam);
+		engine.addSystem(new BulletSystem(player));
+		engine.addSystem(new LevelGenerationSystem(lvlFactory));
+
+		lvlFactory.createFloor(atlas.findRegion("player"));
 	}
-	
-	
+
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(controller);	
+		Gdx.input.setInputProcessor(controller);
 	}
 
 	@Override
 	public void render(float delta) {
-	Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	
-	engine.update(delta);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		engine.update(delta);
 
 	}
 
