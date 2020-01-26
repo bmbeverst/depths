@@ -26,9 +26,10 @@ public class PreferencesScreen implements Screen {
 	private Label volumeSoundLabel;
 	private Label musicOnOffLabel;
 	private Label soundOnOffLabel;
+	private Label debugOnOffLabel;
 
-	public PreferencesScreen(Depths Depths) {
-		parent = Depths;
+	public PreferencesScreen(Depths depths) {
+		parent = depths;
 		/// create stage and set it as input processor
 		stage = new Stage(new ScreenViewport());
 
@@ -39,16 +40,7 @@ public class PreferencesScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		// temporary until we have asset manager in
-		Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-
-		// Create a table that fills the screen. Everything else will go inside
-		// this table.
-		Table table = new Table(skin);
-		table.setFillParent(true);
-		// table.setDebug(true);
-		table.setBackground("window");
-		stage.addActor(table);
+		Skin skin = parent.assetManager.manager.get("skin/uiskin.json");
 
 		// music volume
 		final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
@@ -81,7 +73,7 @@ public class PreferencesScreen implements Screen {
 			@Override
 			public boolean handle(Event event) {
 				boolean enabled = musicCheckbox.isChecked();
-				parent.getPreferences().setMusicEnabled(enabled);
+				parent.getPreferences().setMusic(enabled);
 				return false;
 			}
 		});
@@ -93,7 +85,20 @@ public class PreferencesScreen implements Screen {
 			@Override
 			public boolean handle(Event event) {
 				boolean enabled = soundEffectsCheckbox.isChecked();
-				parent.getPreferences().setSoundEffectsEnabled(enabled);
+				parent.getPreferences().setSoundEffects(enabled);
+				return false;
+			}
+		});
+		
+
+		// sound on/off
+		final Button debugCheckbox = new Button(null, skin, "toggle");
+		debugCheckbox.setChecked(parent.getPreferences().isDebugEnabled());
+		debugCheckbox.addListener(new EventListener() {
+			@Override
+			public boolean handle(Event event) {
+				boolean enabled = debugCheckbox.isChecked();
+				parent.getPreferences().setDebug(enabled);
 				return false;
 			}
 		});
@@ -113,7 +118,18 @@ public class PreferencesScreen implements Screen {
 		volumeSoundLabel = new Label("Sound Volume", skin);
 		musicOnOffLabel = new Label("Music", skin);
 		soundOnOffLabel = new Label("Sound Effect", skin);
+		debugOnOffLabel = new Label("Debug", skin);
 
+
+		// Create a table that fills the screen. Everything else will go inside
+		// this table.
+		Table table = new Table(skin);
+		table.setFillParent(true);
+		// table.setDebug(true);
+		table.setBackground("window");
+		stage.addActor(table);
+
+		// Title
 		table.add(titleLabel).colspan(2);
 		table.row().pad(10, 0, 0, 10);
 		table.add(volumeMusicLabel).left();
@@ -127,6 +143,9 @@ public class PreferencesScreen implements Screen {
 		table.row().pad(10, 0, 0, 10);
 		table.add(soundOnOffLabel).left();
 		table.add(soundEffectsCheckbox);
+		table.row().pad(10, 0, 0, 10);
+		table.add(debugOnOffLabel).left();
+		table.add(debugCheckbox);
 		table.row().pad(10, 0, 0, 10);
 		table.add(backButton).colspan(2);
 

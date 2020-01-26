@@ -5,13 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -24,7 +21,6 @@ public class LoadingScreen implements Screen {
 	private Depths parent; // a field to store our orchestrator
 	private TextureAtlas atlas;
 	private AtlasRegion dash;
-	private SpriteBatch sb;
 
 	public static enum Progress {
 		IMAGE, FONT, PARTI, SOUND, MUSIC, FINISHED;
@@ -34,7 +30,6 @@ public class LoadingScreen implements Screen {
 
 	// timer for exiting loading screen
 	public float countDown = 3f; // 5 seconds of waiting before menu screen
-	private BitmapFont font;
 	private Animation<TextureRegion> flameAnimation;
 	private Stage stage;
 	private Table loadingTable;

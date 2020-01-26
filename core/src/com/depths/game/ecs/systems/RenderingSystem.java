@@ -1,5 +1,7 @@
 package com.depths.game.ecs.systems;
 
+import java.util.Comparator;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -11,10 +13,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.depths.game.ecs.componets.TextureComponent;
-import com.depths.game.ecs.componets.TransformComponent;
-
-import java.util.Comparator;
+import com.depths.game.ecs.components.TextureComponent;
+import com.depths.game.ecs.components.TransformComponent;
 
 public class RenderingSystem extends SortedIteratingSystem {
 

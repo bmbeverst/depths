@@ -19,6 +19,7 @@ public class Depths extends Game {
 	private AppPreferences preferences;
 	public DepthsAssetManager assetManager = new DepthsAssetManager();
 	private Music playingSong;
+	public int lastScore;
 
 	public static enum Screens {
 		MENU, PREFERENCES, APPLICATION, ENDGAME;

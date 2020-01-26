@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.depths.game.ecs.componets.B2dBodyComponent;
-import com.depths.game.ecs.componets.EnemyComponent;
+import com.depths.game.ecs.components.B2dBodyComponent;
+import com.depths.game.ecs.components.EnemyComponent;
 
 public class EnemySystem extends IteratingSystem {
 

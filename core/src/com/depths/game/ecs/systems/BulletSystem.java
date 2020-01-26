@@ -4,9 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.depths.game.ecs.componets.B2dBodyComponent;
-import com.depths.game.ecs.componets.BulletComponent;
-import com.depths.game.ecs.componets.Mapper;
+import com.depths.game.ecs.components.B2dBodyComponent;
+import com.depths.game.ecs.components.BulletComponent;
+import com.depths.game.ecs.components.Mapper;
 
 public class BulletSystem extends IteratingSystem {
 	private Entity player;

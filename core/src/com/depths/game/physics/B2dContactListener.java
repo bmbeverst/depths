@@ -1,13 +1,12 @@
 package com.depths.game.physics;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.depths.game.ecs.componets.CollisionComponent;
+import com.depths.game.ecs.components.CollisionComponent;
 
 public class B2dContactListener implements ContactListener {
 

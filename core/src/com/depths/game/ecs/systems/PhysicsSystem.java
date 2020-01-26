@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.depths.game.ecs.componets.B2dBodyComponent;
-import com.depths.game.ecs.componets.TransformComponent;
+import com.depths.game.ecs.components.B2dBodyComponent;
+import com.depths.game.ecs.components.TransformComponent;
 
 public class PhysicsSystem extends IteratingSystem {
 

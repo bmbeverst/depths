@@ -7,9 +7,9 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.depths.game.controllers.KeyboardController;
-import com.depths.game.ecs.componets.B2dBodyComponent;
-import com.depths.game.ecs.componets.PlayerComponent;
-import com.depths.game.ecs.componets.StateComponent;
+import com.depths.game.ecs.components.B2dBodyComponent;
+import com.depths.game.ecs.components.PlayerComponent;
+import com.depths.game.ecs.components.StateComponent;
 import com.depths.game.physics.factory.LevelFactory;
 
 public class PlayerControlSystem extends IteratingSystem {

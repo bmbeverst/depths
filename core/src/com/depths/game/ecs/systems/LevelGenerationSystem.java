@@ -3,10 +3,9 @@ package com.depths.game.ecs.systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.depths.game.ecs.componets.PlayerComponent;
-import com.depths.game.ecs.componets.TransformComponent;
+import com.depths.game.ecs.components.PlayerComponent;
+import com.depths.game.ecs.components.TransformComponent;
 import com.depths.game.physics.factory.LevelFactory;
 
 public class LevelGenerationSystem extends IteratingSystem {

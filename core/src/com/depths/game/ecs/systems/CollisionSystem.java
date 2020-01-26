@@ -5,11 +5,11 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.depths.game.ecs.componets.CollisionComponent;
-import com.depths.game.ecs.componets.EnemyComponent;
-import com.depths.game.ecs.componets.Mapper;
-import com.depths.game.ecs.componets.PlayerComponent;
-import com.depths.game.ecs.componets.TypeComponent;
+import com.depths.game.ecs.components.CollisionComponent;
+import com.depths.game.ecs.components.EnemyComponent;
+import com.depths.game.ecs.components.Mapper;
+import com.depths.game.ecs.components.PlayerComponent;
+import com.depths.game.ecs.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
 	ComponentMapper<CollisionComponent> cm;

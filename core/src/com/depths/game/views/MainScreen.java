@@ -1,29 +1,16 @@
 package com.depths.game.views;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.depths.game.Depths;
 import com.depths.game.controllers.KeyboardController;
-import com.depths.game.ecs.componets.B2dBodyComponent;
-import com.depths.game.ecs.componets.CollisionComponent;
-import com.depths.game.ecs.componets.PlayerComponent;
-import com.depths.game.ecs.componets.StateComponent;
-import com.depths.game.ecs.componets.TextureComponent;
-import com.depths.game.ecs.componets.TransformComponent;
-import com.depths.game.ecs.componets.TypeComponent;
+import com.depths.game.ecs.components.PlayerComponent;
 import com.depths.game.ecs.systems.AnimationSystem;
 import com.depths.game.ecs.systems.BulletSystem;
 import com.depths.game.ecs.systems.CollisionSystem;
@@ -33,9 +20,6 @@ import com.depths.game.ecs.systems.PhysicsDebugSystem;
 import com.depths.game.ecs.systems.PhysicsSystem;
 import com.depths.game.ecs.systems.PlayerControlSystem;
 import com.depths.game.ecs.systems.RenderingSystem;
-import com.depths.game.physics.B2dContactListener;
-import com.depths.game.physics.B2dModel;
-import com.depths.game.physics.factory.BodyFactory;
 import com.depths.game.physics.factory.LevelFactory;
 
 public class MainScreen implements Screen {
@@ -47,6 +31,7 @@ public class MainScreen implements Screen {
 	private PooledEngine engine;
 	private TextureAtlas atlas;
 	private LevelFactory lvlFactory;
+	private Entity player;	
 
 	// our constructor with a depths argument
 	public MainScreen(Depths depths) {
@@ -71,11 +56,11 @@ public class MainScreen implements Screen {
 		engine.addSystem(new AnimationSystem());
 		engine.addSystem(new PhysicsSystem(lvlFactory.world));
 		engine.addSystem(renderingSystem);
-		engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera()));
+		engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera(), this.parent));
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller, lvlFactory));
 		engine.addSystem(new EnemySystem());
-		Entity player = lvlFactory.createPlayer(cam);
+		player = lvlFactory.createPlayer(cam);
 		engine.addSystem(new BulletSystem(player));
 		engine.addSystem(new LevelGenerationSystem(lvlFactory));
 
@@ -93,6 +78,14 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		engine.update(delta);
+		
+		//check if player is dead. if so show end screen
+		PlayerComponent pc = (player.getComponent(PlayerComponent.class));
+		if(pc.isDead){
+			Gdx.app.log(this.getClass().getSimpleName(), "YOU DIED : back to menu you go!");
+			parent.lastScore = (int) pc.cam.position.y;
+			parent.changeScreen(Depths.Screens.ENDGAME);	
+		}
 
 	}
 
