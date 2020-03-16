@@ -3,8 +3,6 @@ package com.depths.game.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,13 +23,11 @@ public class EndScreen implements Screen {
 	// our constructor with a Box2DTutorial argument
 	public EndScreen(Depths depths) {
 		parent = depths; // setting the argument to our field.
-
-		skin = parent.assetManager.manager.get("skin/uiskin.json");
-		
 	}
 
 	@Override
 	public void show() {
+		skin = parent.assetManager.manager.get("skin/uiskin.json");
 		// create button to go back to manu
 		TextButton menuButton = new TextButton("Back", skin);
 		
@@ -48,18 +44,18 @@ public class EndScreen implements Screen {
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage); 
 		
-		// create table to layout iutems we will add
-		Table table = new Table();
+		// create table to layout items we will add
+		Table table = new Table(skin);
 		table.setFillParent(true);
-        table.setDebug(true);
+		table.setBackground("window");
 		
 		//create a Labels showing the score and some credits
 		Label labelScore = new Label("You score was "+parent.lastScore+" Meters", skin);
 		Label labelCredits = new Label("Credits:", skin);
-		Label labelCredits1 = new Label("Game Design by", skin);
-		Label labelCredits2 = new Label("gamedevelopment.blog", skin);
-		Label labelCredits3 = new Label("Art Design by", skin);
-		Label labelCredits4 = new Label("Random stuff off the internet", skin);
+		Label labelCredits1 = new Label("Game Design by ", skin);
+		Label labelCredits2 = new Label("Cyb3r", skin);
+		Label labelCredits3 = new Label("Art Design by ", skin);
+		Label labelCredits4 = new Label("The internet", skin);
 		
 		// add items to table
 		table.add(labelScore).colspan(2);
@@ -114,8 +110,7 @@ public class EndScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		stage.dispose();
 	}
 
 }

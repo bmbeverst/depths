@@ -125,7 +125,6 @@ public class PreferencesScreen implements Screen {
 		// this table.
 		Table table = new Table(skin);
 		table.setFillParent(true);
-		// table.setDebug(true);
 		table.setBackground("window");
 		stage.addActor(table);
 

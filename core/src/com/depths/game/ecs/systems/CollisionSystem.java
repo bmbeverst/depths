@@ -21,7 +21,8 @@ public class CollisionSystem extends IteratingSystem {
 		cm = ComponentMapper.getFor(CollisionComponent.class);
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 	}
-
+	
+	
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		// get collision for this entity
@@ -38,12 +39,8 @@ public class CollisionSystem extends IteratingSystem {
 				if (type != null) {
 					switch (type.type) {
 					case ENEMY:
-						// do player hit enemy thing
 						Gdx.app.log(this.getClass().getSimpleName(), "player hit enemy");
-						PlayerComponent pl = pm.get(entity);
-						pl.isDead = true;
-						int score = (int) pl.cam.position.y;
-						Gdx.app.log(this.getClass().getSimpleName(), "Score = " + score);
+						handle_enemy_player(entity);
 						break;
 					case SCENERY:
 						// do player hit scenery thing
@@ -77,6 +74,7 @@ public class CollisionSystem extends IteratingSystem {
 					switch (type.type) {
 					case PLAYER:
 						Gdx.app.log(this.getClass().getSimpleName(), "enemy hit player");
+						handle_enemy_player(collidedEntity);
 						break;
 					case ENEMY:
 						Gdx.app.log(this.getClass().getSimpleName(), "enemy hit enemy");
@@ -104,5 +102,13 @@ public class CollisionSystem extends IteratingSystem {
 				}
 			}
 		}
+	}
+
+	private void handle_enemy_player(Entity entity) {
+		// do player hit enemy thing
+		PlayerComponent pl = pm.get(entity);
+		pl.isDead = true;
+		int score = (int) pl.cam.position.y;
+		Gdx.app.log(this.getClass().getSimpleName(), "Score = " + score);
 	}
 }

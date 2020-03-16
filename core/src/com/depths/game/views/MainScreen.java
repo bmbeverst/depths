@@ -1,5 +1,6 @@
 package com.depths.game.views;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.depths.game.Depths;
 import com.depths.game.controllers.KeyboardController;
 import com.depths.game.ecs.components.PlayerComponent;
+import com.depths.game.ecs.components.TransformComponent;
 import com.depths.game.ecs.systems.AnimationSystem;
 import com.depths.game.ecs.systems.BulletSystem;
 import com.depths.game.ecs.systems.CollisionSystem;
@@ -82,6 +84,7 @@ public class MainScreen implements Screen {
 		//check if player is dead. if so show end screen
 		PlayerComponent pc = (player.getComponent(PlayerComponent.class));
 		if(pc.isDead){
+			Gdx.app.log(this.getClass().getSimpleName(), "X " + cam.position.x + " Y " + cam.position.y);
 			Gdx.app.log(this.getClass().getSimpleName(), "YOU DIED : back to menu you go!");
 			parent.lastScore = (int) pc.cam.position.y;
 			parent.changeScreen(Depths.Screens.ENDGAME);	
@@ -117,6 +120,26 @@ public class MainScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void resetWorld() {
+
+		System.out.println("Resetting world");
+		engine.removeAllEntities();
+		lvlFactory.resetWorld();
+		
+		player = lvlFactory.createPlayer(cam);
+		lvlFactory.createFloor(atlas.findRegion("player"));
+        
+        // reset controller controls (fixes bug where controller stuck on directrion if died in that position)
+        controller.left = false;
+        controller.right = false;
+        controller.up = false;
+        controller.down = false;
+        controller.isMouse1Down = false;
+        controller.isMouse2Down = false;
+        controller.isMouse3Down = false;
+		
 	}
 
 }

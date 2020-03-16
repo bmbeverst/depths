@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.depths.game.ecs.components.AnimationComponent;
 import com.depths.game.ecs.components.B2dBodyComponent;
 import com.depths.game.ecs.components.BulletComponent;
@@ -275,7 +277,7 @@ public class LevelFactory {
 		TypeComponent type = engine.createComponent(TypeComponent.class);
 		StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-		texture.y_off_set = -30f;
+		texture.offsetY = -30f;
 		player.cam = cam;
 		b2dbody.body = bodyFactory.makeCirclePolyBody(10, 1, 1, BodyFactory.Materials.STONE, BodyType.DynamicBody,
 				true);
@@ -308,5 +310,16 @@ public class LevelFactory {
 
 		return entity;
 
+	}
+
+	public void resetWorld() {
+		currentLevel = 0;
+		openSim = new OpenSimplexNoise(MathUtils.random(2000l));
+		Array<Body> bods = new Array<Body>();
+		world.getBodies(bods);
+		for(Body bod:bods){
+			world.destroyBody(bod);
+		}
+		
 	}
 }

@@ -1,6 +1,7 @@
 package com.depths.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.depths.game.loader.DepthsAssetManager;
 import com.depths.game.views.EndScreen;
@@ -57,8 +58,15 @@ public class Depths extends Game {
 			this.setScreen(preferencesScreen);
 			break;
 		case APPLICATION:
-			if (mainScreen == null)
+			// always make new game screen so game can't start midway
+			if(mainScreen == null){
 				mainScreen = new MainScreen(this);
+			}else{
+
+				Gdx.app.log(this.getClass().getSimpleName(), "Resetting the world");
+				mainScreen.resetWorld();
+			}
+			
 			this.setScreen(mainScreen);
 			break;
 		case ENDGAME:
