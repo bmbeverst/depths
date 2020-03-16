@@ -227,7 +227,7 @@ public class LevelFactory {
 	public void createPlatform(float x, float y) {
 		Entity entity = engine.createEntity();
 		B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
-		b2dbody.body = bodyFactory.makeBoxPolyBody(x, y, 3f, 0.3f, BodyFactory.Materials.STONE, BodyType.StaticBody);
+		b2dbody.body = bodyFactory.makeBoxPolyBody(x, y, 1.2f, 0.3f, BodyFactory.Materials.STONE, BodyType.StaticBody);
 		b2dbody.body.setUserData(entity);
 		entity.add(b2dbody);
 
