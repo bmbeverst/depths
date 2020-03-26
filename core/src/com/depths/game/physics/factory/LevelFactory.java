@@ -2,8 +2,10 @@ package com.depths.game.physics.factory;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -17,15 +19,18 @@ import com.depths.game.ecs.components.B2dBodyComponent;
 import com.depths.game.ecs.components.BulletComponent;
 import com.depths.game.ecs.components.CollisionComponent;
 import com.depths.game.ecs.components.EnemyComponent;
+import com.depths.game.ecs.components.ParticleEffectComponent;
 import com.depths.game.ecs.components.PlayerComponent;
 import com.depths.game.ecs.components.StateComponent;
 import com.depths.game.ecs.components.TextureComponent;
 import com.depths.game.ecs.components.TransformComponent;
 import com.depths.game.ecs.components.TypeComponent;
 import com.depths.game.ecs.systems.RenderingSystem;
+import com.depths.game.loader.DepthsAssetManager;
 import com.depths.game.physics.B2dContactListener;
-import com.depths.game.simplexnoise.OpenSimplexNoise;
 import com.depths.game.util.DFUtils;
+import com.depths.game.util.OpenSimplexNoise;
+import com.depths.game.util.ParticleEffectManager;
 
 public class LevelFactory {
 	private BodyFactory bodyFactory;
@@ -38,10 +43,11 @@ public class LevelFactory {
 	// private SimplexNoise simRough;
 	private TextureAtlas atlas;
 	private OpenSimplexNoise openSim;
+	private ParticleEffectManager pem;
 
-	public LevelFactory(PooledEngine en, TextureAtlas atlas) {
+	public LevelFactory(PooledEngine en, DepthsAssetManager atlas2) {
 		engine = en;
-		this.atlas = atlas;
+		this.atlas = atlas2.manager.get("images/depthsGame.atlas");
 		floorTex = atlas.findRegion("platform");
 		enemyTex = atlas.findRegion("waterdrop");
 		DFUtils.makeTextureRegion(2 * RenderingSystem.PPM, 0.1f * RenderingSystem.PPM, "221122FF");
@@ -49,11 +55,12 @@ public class LevelFactory {
 		world.setContactListener(new B2dContactListener());
 		bodyFactory = BodyFactory.getInstance(world);
 
-		// create a new SimplexNoise (size,roughness,seed)
-//		sim = new SimplexNoise(512, 0.80f, 1);
-//		simRough = new SimplexNoise(512, 0.95f, 1);
-
 		openSim = new OpenSimplexNoise(MathUtils.random(2000l));
+		
+		pem = new ParticleEffectManager();
+		pem.addParticleEffect(ParticleEffectManager.FIRE, atlas2.manager.get("particles/fire.pe",ParticleEffect.class),1f/64f);
+		pem.addParticleEffect(ParticleEffectManager.WATER, atlas2.manager.get("particles/water.pe",ParticleEffect.class),1f/64f);
+		pem.addParticleEffect(ParticleEffectManager.SMOKE, atlas2.manager.get("particles/smoke.pe",ParticleEffect.class),1f/64f);
 
 	}
 
@@ -73,6 +80,57 @@ public class LevelFactory {
 		}
 	}
 
+	/**
+	 * Make particle effect at xy
+	 * @param x 
+	 * @param y
+	 * @return the Particle Effect Entity
+	 */
+	public Entity makeParticleEffect(int type, float x, float y){
+		Entity entPE = engine.createEntity();
+		ParticleEffectComponent pec = engine.createComponent(ParticleEffectComponent.class);
+		pec.particleEffect = pem.getPooledParticleEffect(type);
+		pec.particleEffect.setPosition(x, y);
+		entPE.add(pec);
+		engine.addEntity(entPE);
+		return entPE;
+	}
+
+	/** Attache particle effect to body from body component
+	 * @param type the type of particle effect to show
+	 * @param b2dbody the bodycomponent with the body to attach to
+	 * @return the Particle Effect Entity
+	 */
+	public Entity makeParticleEffect(int type, B2dBodyComponent b2dbody){
+		return makeParticleEffect(type,b2dbody,0,0);
+	}
+
+	/**
+	 * Attache particle effect to body from body component with offsets
+	 * @param type the type of particle effect to show
+	 * @param b2dbody the bodycomponent with the body to attach to
+	 * @param xo x offset
+	 * @param yo y offset
+	 * @return the Particle Effect Entity
+	 */
+	public Entity makeParticleEffect(int type, B2dBodyComponent b2dbody, float xo, float yo){
+		Entity entPE = engine.createEntity();
+		ParticleEffectComponent pec = engine.createComponent(ParticleEffectComponent.class);
+		pec.particleEffect = pem.getPooledParticleEffect(type);
+		pec.particleEffect.setPosition(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y);
+		pec.particleEffect.getEmitters().first().setAttached(true); //manually attach for testing
+        pec.xOffset = xo; 
+        pec.yOffset = yo;
+		pec.isattached = true;
+		pec.particleEffect.getEmitters().first().setContinuous(true);
+		pec.attachedBody = b2dbody.body;
+		entPE.add(pec);
+		engine.addEntity(entPE);
+
+		Gdx.app.log(this.getClass().getSimpleName(), " " + entPE);
+		return entPE;
+	}
+	
 	// generate noise for level
 	private float genNForL(int level, int height) {
 		return (float) openSim.eval(height, level);
@@ -156,6 +214,11 @@ public class LevelFactory {
 		b2dbody.body.setUserData(entity);
 		bul.xVel = xVel;
 		bul.yVel = yVel;
+		
+		//attach party to bullet
+		bul.particleEffect = makeParticleEffect(ParticleEffectManager.FIRE,b2dbody);
+
+		Gdx.app.log(this.getClass().getSimpleName(), " " + bul.particleEffect);
 
 		entity.add(bul);
 		entity.add(colComp);
@@ -247,12 +310,12 @@ public class LevelFactory {
 
 	}
 
-	public void createFloor(TextureRegion tex) {
+	public void createFloor() {
 		Entity entity = engine.createEntity();
 		B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
 		b2dbody.body = bodyFactory.makeBoxPolyBody(0, 0, 100, 0.2f, BodyFactory.Materials.STONE, BodyType.StaticBody);
 		TextureComponent texture = engine.createComponent(TextureComponent.class);
-		texture.region = tex;
+		texture.region = floorTex;
 		TypeComponent type = engine.createComponent(TypeComponent.class);
 		type.type = TypeComponent.Types.SCENERY;
 

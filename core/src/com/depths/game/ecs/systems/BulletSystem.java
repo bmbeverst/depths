@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.depths.game.ecs.components.B2dBodyComponent;
 import com.depths.game.ecs.components.BulletComponent;
 import com.depths.game.ecs.components.Mapper;
+import com.depths.game.ecs.components.ParticleEffectComponent;
 
 public class BulletSystem extends IteratingSystem {
 	private Entity player;
@@ -44,6 +45,9 @@ public class BulletSystem extends IteratingSystem {
 		// check if bullet is dead
 		if (bullet.isDead) {
 			Gdx.app.log(this.getClass().getSimpleName(), "Bullet died");
+			ParticleEffectComponent test = Mapper.peCom.get(bullet.particleEffect);
+			Gdx.app.log(this.getClass().getSimpleName(), " " + test);
+			Mapper.peCom.get(bullet.particleEffect).isDead = true;
 			b2body.isDead = true;
 		}
 	}

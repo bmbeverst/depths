@@ -13,21 +13,28 @@ FlameSpriteAnimation
   index: -1
 enemy
   rotate: false
-  xy: 912, 254
+  xy: 1042, 384
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+particle
+  rotate: false
+  xy: 912, 253
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
 platform
   rotate: false
-  xy: 1172, 530
+  xy: 1302, 660
   size: 48, 16
   orig: 48, 16
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1042, 384
+  xy: 1172, 514
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -38,7 +45,7 @@ torch/torchlight
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 2
+  index: 46
 torch/torchlight
   rotate: false
   xy: 2, 678
@@ -52,14 +59,14 @@ torch/torchlight
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 48
+  index: 4
 torch/torchlight
   rotate: false
   xy: 2, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 5
+  index: 49
 torch/torchlight
   rotate: false
   xy: 132, 678
@@ -73,7 +80,7 @@ torch/torchlight
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 7
+  index: 47
 torch/torchlight
   rotate: false
   xy: 2, 418
@@ -94,357 +101,357 @@ torch/torchlight
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 4
+  index: 50
 torch/torchlight
   rotate: false
   xy: 392, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 50
+  index: 51
 torch/torchlight
   rotate: false
   xy: 2, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 51
+  index: 52
 torch/torchlight
   rotate: false
   xy: 132, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 52
+  index: 53
 torch/torchlight
   rotate: false
   xy: 262, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 53
+  index: 54
 torch/torchlight
   rotate: false
   xy: 392, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 54
+  index: 11
 torch/torchlight
   rotate: false
   xy: 522, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 11
+  index: 13
 torch/torchlight
   rotate: false
   xy: 2, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 12
+  index: 14
 torch/torchlight
   rotate: false
   xy: 132, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 33
+  index: 59
 torch/torchlight
   rotate: false
   xy: 262, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 14
+  index: 16
 torch/torchlight
   rotate: false
   xy: 392, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 59
+  index: 17
 torch/torchlight
   rotate: false
   xy: 522, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 16
+  index: 18
 torch/torchlight
   rotate: false
   xy: 652, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 17
+  index: 19
 torch/torchlight
   rotate: false
   xy: 2, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 18
+  index: 10
 torch/torchlight
   rotate: false
   xy: 132, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 19
+  index: 55
 torch/torchlight
   rotate: false
   xy: 262, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 10
+  index: 5
 torch/torchlight
   rotate: false
   xy: 392, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 55
+  index: 60
 torch/torchlight
   rotate: false
   xy: 522, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 47
+  index: 61
 torch/torchlight
   rotate: false
   xy: 652, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 60
+  index: 62
 torch/torchlight
   rotate: false
   xy: 782, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 61
+  index: 33
 torch/torchlight
   rotate: false
   xy: 132, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 62
+  index: 20
 torch/torchlight
   rotate: false
   xy: 262, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 63
+  index: 21
 torch/torchlight
   rotate: false
   xy: 392, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 20
+  index: 22
 torch/torchlight
   rotate: false
   xy: 522, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 21
+  index: 23
 torch/torchlight
   rotate: false
   xy: 652, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 22
+  index: 24
 torch/torchlight
   rotate: false
   xy: 782, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 23
+  index: 25
 torch/torchlight
   rotate: false
   xy: 912, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 24
+  index: 26
 torch/torchlight
   rotate: false
   xy: 262, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 25
+  index: 27
 torch/torchlight
   rotate: false
   xy: 392, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 26
+  index: 28
 torch/torchlight
   rotate: false
   xy: 522, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 27
+  index: 29
 torch/torchlight
   rotate: false
   xy: 652, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 28
+  index: 12
 torch/torchlight
   rotate: false
   xy: 782, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 29
+  index: 48
 torch/torchlight
   rotate: false
   xy: 912, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 13
+  index: 7
 torch/torchlight
   rotate: false
   xy: 1042, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 57
+  index: 63
 torch/torchlight
   rotate: false
   xy: 392, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 34
+  index: 31
 torch/torchlight
   rotate: false
   xy: 522, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 46
+  index: 32
 torch/torchlight
   rotate: false
   xy: 652, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 37
+  index: 56
 torch/torchlight
   rotate: false
   xy: 782, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 31
+  index: 34
 torch/torchlight
   rotate: false
   xy: 912, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 32
+  index: 35
 torch/torchlight
   rotate: false
   xy: 1042, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 56
+  index: 44
 torch/torchlight
   rotate: false
   xy: 1172, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 49
+  index: 38
 torch/torchlight
   rotate: false
   xy: 522, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 35
+  index: 39
 torch/torchlight
   rotate: false
   xy: 652, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 44
+  index: 45
 torch/torchlight
   rotate: false
   xy: 782, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 38
+  index: 40
 torch/torchlight
   rotate: false
   xy: 912, 418
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 39
+  index: 15
 torch/torchlight
   rotate: false
   xy: 1042, 548
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 45
+  index: 36
 torch/torchlight
   rotate: false
   xy: 1172, 678
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 15
+  index: 57
 torch/torchlight
   rotate: false
   xy: 1302, 808
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 36
+  index: 30
 torch/torchlight
   rotate: false
   xy: 652, 28
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 30
+  index: 58
 torch/torchlight
   rotate: false
   xy: 782, 158
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 58
+  index: 2
 torch/torchlight
   rotate: false
   xy: 912, 288
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
-  index: 40
+  index: 37
 torch/torchlight
   rotate: false
   xy: 1042, 418
@@ -482,7 +489,7 @@ torch/torchlight
   index: 1
 waterdrop
   rotate: false
-  xy: 1302, 660
+  xy: 1432, 790
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

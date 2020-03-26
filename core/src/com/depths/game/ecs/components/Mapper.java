@@ -14,8 +14,6 @@ public class Mapper {
 	public static final ComponentMapper<TextureComponent> texCom = ComponentMapper.getFor(TextureComponent.class);
 	public static final ComponentMapper<TransformComponent> transCom = ComponentMapper.getFor(TransformComponent.class);
 	public static final ComponentMapper<TypeComponent> typeCom = ComponentMapper.getFor(TypeComponent.class);
-//	public static final ComponentMapper<WallComponent> wallCom = ComponentMapper.getFor(WallComponent.class);
-//	public static final ComponentMapper<WaterFloorComponent> waterFlCom = ComponentMapper.getFor(WaterFloorComponent.class);
-//	public static final ComponentMapper<ParticleEffectComponent> peCom = ComponentMapper.getFor(ParticleEffectComponent.class);
 //	public static final ComponentMapper<SteeringComponent> sCom = ComponentMapper.getFor(SteeringComponent.class);
+	public static final ComponentMapper<ParticleEffectComponent> peCom = ComponentMapper.getFor(ParticleEffectComponent.class);
 }

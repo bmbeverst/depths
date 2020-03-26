@@ -1,8 +1,10 @@
 package com.depths.game.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader.ParticleEffectParameter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -50,9 +52,18 @@ public class DepthsAssetManager {
 		// TODO Auto-generated method stub
 
 	}
+	
+    // Particle Effects
+	public final String smokeEffect = "particles/smoke.pe";
+	public final String waterEffect = "particles/water.pe";
+	public final String fireEffect = "particles/fire.pe";
 
 	public void queueAddParticleEffects() {
-		// TODO Auto-generated method stub
+		ParticleEffectParameter pep = new ParticleEffectParameter();
+		pep.atlasFile = "images/depthsGame.atlas";
+		manager.load(smokeEffect, ParticleEffect.class, pep);
+		manager.load(waterEffect, ParticleEffect.class, pep);
+		manager.load(fireEffect, ParticleEffect.class, pep);
 
 	}
 

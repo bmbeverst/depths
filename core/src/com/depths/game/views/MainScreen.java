@@ -18,10 +18,12 @@ import com.depths.game.ecs.systems.BulletSystem;
 import com.depths.game.ecs.systems.CollisionSystem;
 import com.depths.game.ecs.systems.EnemySystem;
 import com.depths.game.ecs.systems.LevelGenerationSystem;
+import com.depths.game.ecs.systems.ParticleEffectSystem;
 import com.depths.game.ecs.systems.PhysicsDebugSystem;
 import com.depths.game.ecs.systems.PhysicsSystem;
 import com.depths.game.ecs.systems.PlayerControlSystem;
 import com.depths.game.ecs.systems.RenderingSystem;
+import com.depths.game.loader.DepthsAssetManager;
 import com.depths.game.physics.factory.LevelFactory;
 
 public class MainScreen implements Screen {
@@ -31,7 +33,7 @@ public class MainScreen implements Screen {
 	private KeyboardController controller;
 	private SpriteBatch sb;
 	private PooledEngine engine;
-	private TextureAtlas atlas;
+	private DepthsAssetManager atlas;
 	private LevelFactory lvlFactory;
 	private Entity player;	
 
@@ -40,7 +42,7 @@ public class MainScreen implements Screen {
 		parent = depths; // setting the argument to our field.
 
 		// gets the images as a texture
-		atlas = parent.assetManager.manager.get("images/depthsGame.atlas"); // new
+		atlas = parent.assetManager;
 
 		controller = new KeyboardController();
 
@@ -52,12 +54,14 @@ public class MainScreen implements Screen {
 		// Create our new rendering system
 		RenderingSystem renderingSystem = new RenderingSystem(sb);
 		cam = renderingSystem.getCamera();
+		ParticleEffectSystem particleSystem = new ParticleEffectSystem(sb,cam);
 		sb.setProjectionMatrix(cam.combined);
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(new AnimationSystem());
 		engine.addSystem(new PhysicsSystem(lvlFactory.world));
-		engine.addSystem(renderingSystem);
+		engine.addSystem(renderingSystem);        // not a fan of splitting batch into rendering and particles but I like the separation of the systems
+        engine.addSystem(particleSystem); // particle get drawns on top so should be placed after normal rendering
 		engine.addSystem(new PhysicsDebugSystem(lvlFactory.world, renderingSystem.getCamera(), this.parent));
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller, lvlFactory));
@@ -66,7 +70,7 @@ public class MainScreen implements Screen {
 		engine.addSystem(new BulletSystem(player));
 		engine.addSystem(new LevelGenerationSystem(lvlFactory));
 
-		lvlFactory.createFloor(atlas.findRegion("player"));
+		lvlFactory.createFloor();
 	}
 
 	@Override
@@ -129,7 +133,7 @@ public class MainScreen implements Screen {
 		lvlFactory.resetWorld();
 		
 		player = lvlFactory.createPlayer(cam);
-		lvlFactory.createFloor(atlas.findRegion("player"));
+		lvlFactory.createFloor();
         
         // reset controller controls (fixes bug where controller stuck on directrion if died in that position)
         controller.left = false;

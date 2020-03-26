@@ -11,6 +11,7 @@ import com.depths.game.ecs.components.B2dBodyComponent;
 import com.depths.game.ecs.components.PlayerComponent;
 import com.depths.game.ecs.components.StateComponent;
 import com.depths.game.physics.factory.LevelFactory;
+import com.depths.game.util.ParticleEffectManager;
 
 public class PlayerControlSystem extends IteratingSystem {
 
@@ -39,9 +40,11 @@ public class PlayerControlSystem extends IteratingSystem {
 
 		// make player jump very high
 		if (player.onSpring) {
-			b2body.body.applyLinearImpulse(0, 85f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y,
+			//add particle effect at feet
+			lvlFactory.makeParticleEffect(ParticleEffectManager.SMOKE, b2body.body.getPosition().x, b2body.body.getPosition().y);
+			b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y,
 					true); // old
-			b2body.body.setTransform(b2body.body.getPosition().x, b2body.body.getPosition().y + 10,
+			b2body.body.setTransform(b2body.body.getPosition().x, b2body.body.getPosition().y + 5,
 					b2body.body.getAngle()); // new
 			// state.set(StateComponent.STATE_JUMPING); //old removed
 			player.onSpring = false;
